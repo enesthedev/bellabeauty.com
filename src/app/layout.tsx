@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { PROJECT_CONFIG } from "@/config/project-config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,8 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: PROJECT_CONFIG.name,
-  description: PROJECT_CONFIG.description,
+  title: process.env.NEXT_PUBLIC_APP_NAME,
 };
 
 export default function RootLayout({
