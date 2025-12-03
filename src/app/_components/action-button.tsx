@@ -10,10 +10,11 @@ interface ActionButtonProps {
 
 function ActionButton({ href, icon, label }: ActionButtonProps) {
   return (
-    <Button variant="action" className="h-auto w-full justify-start gap-4 rounded-xl px-5 py-4" asChild>
+    <Button variant="action" className="relative h-auto w-full rounded-xl px-5 py-4" asChild>
       <Link href={href} target="_blank" rel="noopener noreferrer">
-        <span className="shrink-0">{icon}</span>
-        <span className="flex-1 text-center font-medium">{label}</span>
+        <span className="absolute left-5 shrink-0">{icon}</span>
+        <span className="w-full text-center font-medium">{label}</span>
+        <span className="sr-only">(yeni sekmede açılır)</span>
       </Link>
     </Button>
   );

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function PageLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen w-full">
+    <div className="h-screen w-full snap-y snap-mandatory overflow-y-auto scroll-smooth">
       {children}
     </div>
   );
