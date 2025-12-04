@@ -1,8 +1,5 @@
 "use client";
 
-import { Quote, Star } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +8,9 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { Quote, Star } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import type { Testimonial } from "../api/about/route";
 
 interface TestimonialCardsProps {
@@ -99,12 +99,9 @@ export function TestimonialCards({ testimonials }: TestimonialCardsProps) {
       >
         <CarouselContent className="-ml-4">
           {testimonials.map((testimonial, index) => (
-            <CarouselItem
-              key={`${testimonial.name}-${index}`}
-              className="pl-4 md:basis-1/2 lg:basis-1/3"
-            >
-              <article className="group relative flex h-full min-h-[280px] flex-col overflow-hidden rounded-3xl border border-stone-200/60 bg-gradient-to-br from-white via-stone-50/50 to-amber-50/30 p-6 shadow-lg shadow-stone-200/40 transition-all duration-500 hover:border-amber-200/60 hover:shadow-xl hover:shadow-amber-100/40">
-                <div className="absolute -right-4 -top-4 opacity-[0.07] transition-all duration-500 group-hover:opacity-[0.12]">
+            <CarouselItem key={`${testimonial.name}-${index}`} className="pl-4 md:basis-1/2 lg:basis-1/3">
+              <article className="group relative flex h-full min-h-[240px] flex-col overflow-hidden rounded-3xl border border-stone-200/60 bg-linear-to-br from-white via-stone-50/50 to-amber-50/30 p-6 shadow-lg shadow-stone-200/40 transition-all duration-500 hover:border-amber-200/60 hover:shadow-xl hover:shadow-amber-100/40">
+                <div className="absolute -top-4 -right-4 opacity-[0.07] transition-all duration-500 group-hover:opacity-[0.12]">
                   <Quote className="h-24 w-24 rotate-180 text-amber-600" />
                 </div>
 
@@ -113,9 +110,9 @@ export function TestimonialCards({ testimonials }: TestimonialCardsProps) {
                     <StarRating rating={testimonial.rating} />
                   </div>
 
-                  <blockquote className="mb-6 flex-1">
+                  <blockquote className="mb-2 flex-1">
                     <p className="font-serif text-base leading-relaxed text-stone-700 italic">
-                      "{testimonial.comment}"
+                      &quot;{testimonial.comment}&quot;
                     </p>
                   </blockquote>
 
@@ -124,12 +121,8 @@ export function TestimonialCards({ testimonials }: TestimonialCardsProps) {
                       {getInitials(testimonial.name)}
                     </div>
                     <div>
-                      <p className="font-medium text-stone-800">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-sm text-amber-600/80">
-                        {testimonial.service}
-                      </p>
+                      <p className="font-medium text-stone-800">{testimonial.name}</p>
+                      <p className="text-sm text-amber-600/80">{testimonial.service}</p>
                     </div>
                   </footer>
                 </div>

@@ -36,13 +36,13 @@ export default async function Page() {
       <section
         id="testimonials"
         aria-labelledby="testimonials-title"
-        className="relative flex h-screen w-full shrink-0 snap-start snap-always flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-stone-50 via-amber-50/30 to-stone-100 px-4 py-8 md:px-12 md:py-16 lg:px-16"
+        className="relative flex h-screen w-full shrink-0 snap-start snap-always flex-col items-center justify-center overflow-hidden bg-linear-to-b from-stone-50 via-amber-50/30 to-stone-100 px-4 py-8 md:px-12 md:py-16 lg:px-16"
       >
         <div className="mx-auto flex h-full w-full max-w-5xl flex-col justify-center">
           <header className="mb-6 text-center md:mb-12">
             <h2
               id="testimonials-title"
-              className="mb-3 font-serif text-2xl font-semibold tracking-tight text-stone-800 sm:text-3xl md:mb-4 md:text-5xl lg:text-6xl"
+              className="mb-3 font-serif text-3xl font-semibold tracking-tight text-stone-800 md:mb-4 md:text-5xl lg:text-6xl"
             >
               {data.title}
             </h2>
