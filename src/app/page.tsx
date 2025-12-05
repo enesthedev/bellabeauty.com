@@ -42,7 +42,7 @@ export default async function Page() {
           <header className="mb-6 text-center md:mb-12">
             <h2
               id="testimonials-title"
-              className="mb-3 font-serif text-3xl font-semibold tracking-tight text-stone-800 md:mb-4 md:text-5xl lg:text-6xl"
+              className="mb-3 font-serif text-2xl font-semibold tracking-tight text-stone-800 md:mb-4 md:text-5xl lg:text-6xl"
             >
               {data.title}
             </h2>
