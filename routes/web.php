@@ -1,7 +1,6 @@
 <?php
 
 use App\Actions\Settings\DeleteProfile;
-use App\Actions\Settings\ShowAppearancePage;
 use App\Actions\Settings\ShowPasswordPage;
 use App\Actions\Settings\ShowProfilePage;
 use App\Actions\Settings\UpdatePassword;
@@ -28,6 +27,4 @@ Route::middleware('auth')->group(function () {
     Route::put('settings/password', UpdatePassword::class)
         ->middleware('throttle:6,1')
         ->name('user-password.update');
-
-    Route::get('settings/appearance', ShowAppearancePage::class)->name('appearance.edit');
 });
