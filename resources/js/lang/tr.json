@@ -122,9 +122,8 @@
         "log_out": "Çıkış yap"
     },
     "common": {
-        "email_placeholder": "email@example.com",
-        "password_placeholder": "Şifre",
+        "email_placeholder": "E-posta adresiniz",
+        "password_placeholder": "Şifreniz",
         "confirm_password_placeholder": "Şifreyi onayla"
     }
 }
-

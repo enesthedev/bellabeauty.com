@@ -1,10 +1,10 @@
-import { dashboard, login, register } from '@/routes';
+import { dashboard, login } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
 export default function Welcome({
-    canRegister = true,
+    canRegister = false,
 }: {
     canRegister?: boolean;
 }) {

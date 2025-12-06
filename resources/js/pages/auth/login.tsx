@@ -1,14 +1,10 @@
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { FloatingLabelInput } from '@/components/ui/floating-label-input';
 import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
-import { register } from '@/routes';
 import { store } from '@/routes/login';
-import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,11 +14,7 @@ interface LoginProps {
     canRegister: boolean;
 }
 
-export default function Login({
-    status,
-    canResetPassword,
-    canRegister,
-}: LoginProps) {
+export default function Login({ status, canRegister }: LoginProps) {
     const { t } = useTranslation();
 
     return (
@@ -41,68 +33,40 @@ export default function Login({
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="email">
-                                    {t('auth.login.email')}
-                                </Label>
-                                <Input
+                                <FloatingLabelInput
                                     id="email"
                                     type="email"
                                     name="email"
+                                    label={t('common.email_placeholder')}
                                     required
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="email"
-                                    placeholder={t('common.email_placeholder')}
+                                    error={!!errors.email}
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
                             <div className="grid gap-2">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">
-                                        {t('auth.login.password')}
-                                    </Label>
-                                    {canResetPassword && (
-                                        <TextLink
-                                            href={request()}
-                                            className="ml-auto text-sm"
-                                            tabIndex={5}
-                                        >
-                                            {t('auth.login.forgot')}
-                                        </TextLink>
-                                    )}
-                                </div>
-                                <Input
+                                <FloatingLabelInput
                                     id="password"
                                     type="password"
                                     name="password"
+                                    label={t('common.password_placeholder')}
                                     required
                                     tabIndex={2}
                                     autoComplete="current-password"
-                                    placeholder={t(
-                                        'common.password_placeholder',
-                                    )}
+                                    error={!!errors.password}
                                 />
                                 <InputError message={errors.password} />
                             </div>
-
-                            <div className="flex items-center space-x-3">
-                                <Checkbox
-                                    id="remember"
-                                    name="remember"
-                                    tabIndex={3}
-                                />
-                                <Label htmlFor="remember">
-                                    {t('auth.login.remember')}
-                                </Label>
-                            </div>
-
                             <Button
                                 type="submit"
-                                className="mt-4 w-full"
+                                className="w-full"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
+                                variant={'secondary'}
                             >
                                 {processing && <Spinner />}
                                 {t('auth.login.submit')}
