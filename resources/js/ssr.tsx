@@ -19,7 +19,9 @@ createServer((page) =>
                 import.meta.glob('./pages/**/*.tsx'),
             ),
         setup: ({ App, props }) => {
-            const locale = (props.initialPage.props as SharedData).locale || 'tr';
+            const locale =
+                (props.initialPage.props as unknown as SharedData).locale ||
+                'tr';
             i18n.changeLanguage(locale);
 
             return <App {...props} />;

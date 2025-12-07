@@ -1,5 +1,5 @@
-import '../css/app.css';
 import i18n from './lib/i18n';
+import './styles/globals.css';
 
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -18,7 +18,8 @@ createInertiaApp({
             import.meta.glob('./pages/**/*.tsx'),
         ),
     setup({ el, App, props }) {
-        const locale = (props.initialPage.props as SharedData).locale || 'tr';
+        const locale =
+            (props.initialPage.props as unknown as SharedData).locale || 'tr';
         i18n.changeLanguage(locale);
 
         const root = createRoot(el);
