@@ -10,7 +10,7 @@ class ShowWelcomePage
 {
     public function __invoke(): Response
     {
-        return Inertia::render('welcome', [
+        return Inertia::render('public/welcome', [
             'canRegister' => Features::enabled(Features::registration()),
         ]);
     }

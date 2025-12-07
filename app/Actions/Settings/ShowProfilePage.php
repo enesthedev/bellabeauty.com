@@ -10,7 +10,7 @@ class ShowProfilePage
 {
     public function __invoke(Request $request): Response
     {
-        return Inertia::render('settings/profile', [
+        return Inertia::render('admin/settings/profile', [
             'mustVerifyEmail' => false,
             'status' => $request->session()->get('status'),
         ]);

@@ -1,9 +1,9 @@
-import InputError from '@/components/input-error';
+import InputError from '@/components/forms/input-error';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { FloatingLabelInput } from '@/components/ui/floating-label-input';
 import { Spinner } from '@/components/ui/spinner';
-import AuthLayout from '@/layouts/auth-layout';
+import AuthLayout from '@/pages/auth/components/layout/auth-layout';
 import { store } from '@/routes/login';
 import { Form, Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';

@@ -9,6 +9,6 @@ class ShowDashboardPage
 {
     public function __invoke(): Response
     {
-        return Inertia::render('dashboard');
+        return Inertia::render('admin/dashboard');
     }
 }

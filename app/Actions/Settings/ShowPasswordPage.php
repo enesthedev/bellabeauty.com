@@ -9,6 +9,6 @@ class ShowPasswordPage
 {
     public function __invoke(): Response
     {
-        return Inertia::render('settings/password');
+        return Inertia::render('admin/settings/password');
     }
 }

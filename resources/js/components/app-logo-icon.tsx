@@ -9,3 +9,4 @@ export default function AppLogoIcon(props: ImgHTMLAttributes<HTMLImageElement>) 
         />
     );
 }
+
