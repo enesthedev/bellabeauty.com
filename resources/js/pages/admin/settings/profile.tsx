@@ -9,7 +9,7 @@ import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import DeleteUserDialog from '@/pages/admin/components/dialogs/delete-user-dialog';
+import DeleteUserDialog from '@/pages/admin/components/dialog/delete-user-dialog';
 import AdminLayout from '@/pages/admin/layout';
 import { edit } from '@/routes/profile';
 import Layout from './layout';
@@ -52,9 +52,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">
-                                        {t('Name')}
-                                    </Label>
+                                    <Label htmlFor="name">{t('Name')}</Label>
 
                                     <Input
                                         id="name"

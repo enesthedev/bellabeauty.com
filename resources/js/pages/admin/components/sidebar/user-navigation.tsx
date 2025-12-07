@@ -9,16 +9,17 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { UserInfo } from '@/pages/admin/components/sidebar/user-info';
 import { UserMenuContent } from '@/pages/admin/components/sidebar/user-menu-content';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
-import { ChevronsUpDown } from 'lucide-react';
+import { MoreVertical } from 'lucide-react';
 
-export function NavUser() {
+export function UserNavigation() {
     const { auth } = usePage<SharedData>().props;
     const { state } = useSidebar();
+
     const isMobile = useIsMobile();
 
     return (
@@ -32,7 +33,7 @@ export function NavUser() {
                             data-test="sidebar-menu-button"
                         >
                             <UserInfo user={auth.user} />
-                            <ChevronsUpDown className="ml-auto size-4" />
+                            <MoreVertical className="ml-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
@@ -42,8 +43,8 @@ export function NavUser() {
                             isMobile
                                 ? 'bottom'
                                 : state === 'collapsed'
-                                  ? 'left'
-                                  : 'bottom'
+                                  ? 'right'
+                                  : 'right'
                         }
                     >
                         <UserMenuContent user={auth.user} />
@@ -53,4 +54,3 @@ export function NavUser() {
         </SidebarMenu>
     );
 }
-

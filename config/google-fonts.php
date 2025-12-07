@@ -7,9 +7,9 @@ return [
      * The google-fonts:fetch command will prefetch these fonts.
      */
     'fonts' => [
-        'outfit' => 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;900',
-        'cormorant' => 'https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700',
-        'inter' => 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700',
+        'outfit' => 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;900&display=swap',
+        'cormorant' => 'https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&display=swap',
+        'inter' => 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
     ],
 
     /*

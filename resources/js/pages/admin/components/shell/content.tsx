@@ -5,7 +5,7 @@ interface AppContentProps extends React.ComponentProps<'main'> {
     variant?: 'header' | 'sidebar';
 }
 
-export function AppContent({
+export function Content({
     variant = 'header',
     children,
     ...props
@@ -23,4 +23,3 @@ export function AppContent({
         </main>
     );
 }
-

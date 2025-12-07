@@ -32,7 +32,7 @@
     "Confirm your password": "Şifrenizi onaylayın",
     "This is a secure area of the application. Please confirm your password before continuing.": "Bu, uygulamanın güvenli bir alanıdır. Devam etmeden önce lütfen şifrenizi onaylayın.",
     "Dashboard": "Kontrol Paneli",
-    "Welcome": "Hoş Geldiniz",
+    "Welcome": "Hoş Geldin",
     "Get started": "Haydi başlayalım",
     "Laravel has an incredibly rich ecosystem.": "Laravel inanılmaz zengin bir ekosisteme sahip.",
     "We suggest starting with the following.": "Aşağıdakilerle başlamanızı öneririz.",
@@ -75,5 +75,9 @@
     "Opens in new tab": "yeni sekmede açılır",
     "Test Section": "Test Bölümü",
     "This is a test section for snap scroll": "Bu snap scroll testi için örnek bir bölümdür",
-    "Overview": "Genel Bakış"
+    "Overview": "Genel Bakış",
+    "Content Management": "İçerik Yönetimi",
+    "Comments": "Yorumlar",
+    "Services": "Hizmetler",
+    "Posts": "Yazılar"
 }

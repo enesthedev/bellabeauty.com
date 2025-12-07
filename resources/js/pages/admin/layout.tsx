@@ -1,6 +1,6 @@
-import AdminSidebarLayout from '@/pages/admin/components/shell/admin-sidebar-layout';
 import { type BreadcrumbItem } from '@/types';
 import { type ReactNode } from 'react';
+import Layout from './components/sidebar/layout';
 
 interface LayoutProps {
     children: ReactNode;
@@ -8,7 +8,7 @@ interface LayoutProps {
 }
 
 export default ({ children, breadcrumbs, ...props }: LayoutProps) => (
-    <AdminSidebarLayout breadcrumbs={breadcrumbs} className="font-inter" {...props}>
+    <Layout breadcrumbs={breadcrumbs} className="font-inter" {...props}>
         {children}
-    </AdminSidebarLayout>
+    </Layout>
 );

@@ -11,15 +11,19 @@ export interface BreadcrumbItem {
 }
 
 export interface NavGroup {
-    title: string;
+    title?: string;
+    collapsible?: boolean;
+    defaultOpen?: boolean;
     items: NavItem[];
 }
 
 export interface NavItem {
     title: string;
-    href: NonNullable<InertiaLinkProps['href']>;
+    href?: NonNullable<InertiaLinkProps['href']>;
     icon?: LucideIcon | null;
+    badge?: string | number;
     isActive?: boolean;
+    children?: NavItem[];
 }
 
 export interface SharedData {

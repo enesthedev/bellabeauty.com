@@ -38,6 +38,7 @@
 
         @googlefonts('outfit')
         @googlefonts('cormorant')
+        @googlefonts('inter')
 
 
         @viteReactRefresh

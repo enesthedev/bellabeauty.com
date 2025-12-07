@@ -1,5 +1,7 @@
+'use client';
+
 import { Slot } from '@radix-ui/react-slot';
-import { VariantProps, cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeftIcon } from 'lucide-react';
 import * as React from 'react';
 
@@ -30,7 +32,7 @@ const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
-type SidebarContext = {
+type SidebarContextProps = {
     state: 'expanded' | 'collapsed';
     open: boolean;
     setOpen: (open: boolean) => void;
@@ -40,7 +42,7 @@ type SidebarContext = {
     toggleSidebar: () => void;
 };
 
-const SidebarContext = React.createContext<SidebarContext | null>(null);
+const SidebarContext = React.createContext<SidebarContextProps | null>(null);
 
 function useSidebar() {
     const context = React.useContext(SidebarContext);
@@ -88,12 +90,9 @@ function SidebarProvider({
 
     // Helper to toggle the sidebar.
     /*const toggleSidebar = React.useCallback(() => {
-        return isMobile
-            ? setOpenMobile((open) => !open)
-            : setOpen((open) => !open);
-    }, [isMobile, setOpen, setOpenMobile]);*/
+    return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
+  }, [isMobile, setOpen, setOpenMobile])*/
 
-    // Helper to toggle the mobile sidebar.
     const toggleSidebar = React.useCallback(() => {
         return setOpenMobile((open) => !open);
     }, [setOpenMobile]);
@@ -118,7 +117,7 @@ function SidebarProvider({
     // This makes it easier to style the sidebar with Tailwind classes.
     const state = open ? 'expanded' : 'collapsed';
 
-    const contextValue = React.useMemo<SidebarContext>(
+    const contextValue = React.useMemo<SidebarContextProps>(
         () => ({
             state,
             open,
@@ -196,12 +195,6 @@ function Sidebar({
     if (isMobile) {
         return (
             <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-                <SheetHeader className="sr-only">
-                    <SheetTitle>Sidebar</SheetTitle>
-                    <SheetDescription>
-                        Displays the mobile sidebar.
-                    </SheetDescription>
-                </SheetHeader>
                 <SheetContent
                     data-sidebar="sidebar"
                     data-slot="sidebar"
@@ -214,6 +207,12 @@ function Sidebar({
                     }
                     side={side}
                 >
+                    <SheetHeader className="sr-only">
+                        <SheetTitle>Sidebar</SheetTitle>
+                        <SheetDescription>
+                            Displays the mobile sidebar.
+                        </SheetDescription>
+                    </SheetHeader>
                     <div className="flex h-full w-full flex-col">
                         {children}
                     </div>
@@ -233,8 +232,9 @@ function Sidebar({
         >
             {/* This is what handles the sidebar gap on desktop */}
             <div
+                data-slot="sidebar-gap"
                 className={cn(
-                    'relative h-svh w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear',
+                    'relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear',
                     'group-data-[collapsible=offcanvas]:w-0',
                     'group-data-[side=right]:rotate-180',
                     variant === 'floating' || variant === 'inset'
@@ -243,6 +243,7 @@ function Sidebar({
                 )}
             />
             <div
+                data-slot="sidebar-container"
                 className={cn(
                     'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex',
                     side === 'left'
@@ -258,6 +259,7 @@ function Sidebar({
             >
                 <div
                     data-sidebar="sidebar"
+                    data-slot="sidebar-inner"
                     className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-sm"
                 >
                     {children}
@@ -280,7 +282,7 @@ function SidebarTrigger({
             data-slot="sidebar-trigger"
             variant="ghost"
             size="icon"
-            className={cn('h-7 w-7', className)}
+            className={cn('size-7', className)}
             onClick={(event) => {
                 onClick?.(event);
                 toggleSidebar();
@@ -323,8 +325,8 @@ function SidebarInset({ className, ...props }: React.ComponentProps<'main'>) {
         <main
             data-slot="sidebar-inset"
             className={cn(
-                'relative flex min-h-svh max-w-full flex-1 flex-col bg-background',
-                'peer-data-[variant=inset]:min-h-[calc(100svh-(--spacing(4)))] md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-0',
+                'relative flex w-full flex-1 flex-col bg-background',
+                'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
                 className,
             )}
             {...props}
@@ -423,7 +425,7 @@ function SidebarGroupLabel({
             data-sidebar="group-label"
             className={cn(
                 'flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 ring-sidebar-ring outline-hidden transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
-                'group-data-[collapsible=icon]:pointer-events-none group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:select-none',
+                'group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0',
                 className,
             )}
             {...props}
@@ -627,14 +629,10 @@ function SidebarMenuSkeleton({
 }: React.ComponentProps<'div'> & {
     showIcon?: boolean;
 }) {
-    // wrapping in useState to ensure the width is stable across renders
-    // also ensures we have a stable reference to the style object
-    const [skeletonStyle] = React.useState(
-        () =>
-            ({
-                '--skeleton-width': `${Math.floor(Math.random() * 40) + 50}%`, // Random width between 50 to 90%.
-            }) as React.CSSProperties,
-    );
+    // Random width between 50 to 90%.
+    const width = React.useMemo(() => {
+        return `${Math.floor(Math.random() * 40) + 50}%`;
+    }, []);
 
     return (
         <div
@@ -655,7 +653,11 @@ function SidebarMenuSkeleton({
             <Skeleton
                 className="h-4 max-w-(--skeleton-width) flex-1"
                 data-sidebar="menu-skeleton-text"
-                style={skeletonStyle}
+                style={
+                    {
+                        '--skeleton-width': width,
+                    } as React.CSSProperties
+                }
             />
         </div>
     );
