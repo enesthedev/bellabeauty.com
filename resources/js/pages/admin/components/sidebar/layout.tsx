@@ -85,7 +85,7 @@ export default function Layout({
             </Sidebar>
             <Content variant="sidebar" className="overflow-x-hidden">
                 <ContentHeader breadcrumbs={breadcrumbs} />
-                {children}
+                <div className="p-6">{children}</div>
             </Content>
         </Shell>
     );
