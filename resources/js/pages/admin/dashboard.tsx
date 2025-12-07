@@ -47,9 +47,6 @@ export default function Dashboard() {
                                 Trending up this month{' '}
                                 <TrendingUp className="size-4" />
                             </div>
-                            <div className="text-muted-foreground">
-                                Visitors for the last 6 months
-                            </div>
                         </CardFooter>
                     </Card>
                     <Card className="@container/card">
@@ -69,9 +66,6 @@ export default function Dashboard() {
                             <div className="line-clamp-1 flex gap-2 font-medium">
                                 Down 20% this period{' '}
                                 <TrendingDown className="size-4" />
-                            </div>
-                            <div className="text-muted-foreground">
-                                Acquisition needs attention
                             </div>
                         </CardFooter>
                     </Card>
@@ -93,9 +87,6 @@ export default function Dashboard() {
                                 Strong user retention{' '}
                                 <TrendingUp className="size-4" />
                             </div>
-                            <div className="text-muted-foreground">
-                                Engagement exceed targets
-                            </div>
                         </CardFooter>
                     </Card>
                     <Card className="@container/card">
@@ -115,9 +106,6 @@ export default function Dashboard() {
                             <div className="line-clamp-1 flex gap-2 font-medium">
                                 Steady performance increase{' '}
                                 <TrendingUp className="size-4" />
-                            </div>
-                            <div className="text-muted-foreground">
-                                Meets growth projections
                             </div>
                         </CardFooter>
                     </Card>
