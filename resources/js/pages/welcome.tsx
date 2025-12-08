@@ -1,3 +1,5 @@
+import ShowServiceDetailPage from '@/actions/App/Actions/Services/ShowServiceDetailPage';
+import ShowServicesPage from '@/actions/App/Actions/Services/ShowServicesPage';
 import AppLogoIcon from '@/components/app-logo-icon';
 import {
     Carousel,
@@ -7,9 +9,9 @@ import {
     CarouselPrevious,
     type CarouselApi,
 } from '@/components/ui/carousel';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Autoplay from 'embla-carousel-autoplay';
-import { MapPin, Phone, Quote } from 'lucide-react';
+import { ArrowRight, Clock, MapPin, Phone, Quote } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActionButton } from './components/action-button';
@@ -28,8 +30,19 @@ interface Comment {
     avatar_url: string | null;
 }
 
+interface Service {
+    id: number;
+    slug: string;
+    name: string;
+    description: string | null;
+    price: string;
+    duration: number;
+    image_url: string | null;
+}
+
 interface Props {
     comments: Comment[];
+    services: Service[];
 }
 
 function getInitials(name: string): string {
@@ -41,7 +54,7 @@ function getInitials(name: string): string {
         .slice(0, 2);
 }
 
-export default function Welcome({ comments }: Props) {
+export default function Welcome({ comments, services }: Props) {
     const { t } = useTranslation();
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
@@ -113,6 +126,99 @@ export default function Welcome({ comments }: Props) {
                 </div>
             </Section>
 
+            {services.length > 0 && (
+                <Section
+                    id="services"
+                    ariaLabel={t('Our Services')}
+                    className="flex flex-col items-center justify-center bg-gradient-to-b from-stone-100 via-white to-stone-50 px-4 py-12 md:px-12 md:py-20 lg:px-16"
+                >
+                    <div className="mx-auto w-full max-w-6xl">
+                        <header className="mb-8 text-center md:mb-12">
+                            <h2 className="mb-3 font-serif text-3xl font-semibold tracking-tight text-stone-800 md:mb-4 md:text-5xl lg:text-6xl">
+                                {t('Our Services')}
+                            </h2>
+                            <p className="mx-auto max-w-2xl text-sm text-stone-600 sm:text-base md:text-xl">
+                                {t(
+                                    'Discover our wide range of beauty services',
+                                )}
+                            </p>
+                        </header>
+
+                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            {services.map((service) => (
+                                <Link
+                                    key={service.id}
+                                    href={ShowServiceDetailPage.url(service.slug)}
+                                    className="group relative overflow-hidden rounded-2xl border border-stone-200/60 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-amber-200/60"
+                                >
+                                    <div className="aspect-[4/3] overflow-hidden">
+                                        {service.image_url ? (
+                                            <img
+                                                src={service.image_url}
+                                                alt={service.name}
+                                                className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                        ) : (
+                                            <div className="flex size-full items-center justify-center bg-gradient-to-br from-amber-100 to-amber-200">
+                                                <span className="text-4xl font-bold text-amber-600/30">
+                                                    {service.name.charAt(0)}
+                                                </span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="p-5">
+                                        <h3 className="mb-2 text-lg font-semibold text-stone-800 transition-colors group-hover:text-amber-700">
+                                            {service.name}
+                                        </h3>
+
+                                        {service.description && (
+                                            <p className="mb-4 line-clamp-2 text-sm text-stone-600">
+                                                {service.description}
+                                            </p>
+                                        )}
+
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <span className="font-semibold text-amber-600">
+                                                    {new Intl.NumberFormat(
+                                                        'tr-TR',
+                                                        {
+                                                            style: 'currency',
+                                                            currency: 'TRY',
+                                                        },
+                                                    ).format(
+                                                        parseFloat(
+                                                            service.price,
+                                                        ),
+                                                    )}
+                                                </span>
+                                                <span className="flex items-center gap-1 text-sm text-stone-500">
+                                                    <Clock className="size-3.5" />
+                                                    {service.duration}{' '}
+                                                    {t('min')}
+                                                </span>
+                                            </div>
+                                            <ArrowRight className="size-5 text-stone-400 transition-all group-hover:translate-x-1 group-hover:text-amber-600" />
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+
+                        <div className="mt-10 text-center">
+                            <Link
+                                href={ShowServicesPage.url()}
+                                className="inline-flex items-center gap-2 rounded-full border border-amber-600 bg-amber-600 px-8 py-3 font-medium text-white shadow-lg shadow-amber-200/50 transition-all hover:bg-amber-700 hover:shadow-xl"
+                            >
+                                {t('View All Services')}
+                                <ArrowRight className="size-4" />
+                            </Link>
+                        </div>
+                    </div>
+                </Section>
+            )}
+
             {comments.length > 0 && (
                 <Section
                     id="testimonials"
@@ -156,7 +262,7 @@ export default function Welcome({ comments }: Props) {
                                             key={`${comment.author}-${index}`}
                                             className="pl-4 md:basis-1/2 lg:basis-1/3"
                                         >
-                                            <article className="group relative flex h-full max-h-[280px] flex-col overflow-hidden rounded-3xl border border-stone-200/60 bg-gradient-to-br from-white via-stone-50/50 to-amber-50/30 p-6 shadow-lg shadow-stone-200/40 transition-all duration-500 hover:border-amber-200/60 hover:shadow-xl hover:shadow-amber-100/40">
+                                            <article className="group relative flex h-full max-h-[280px] flex-col overflow-hidden rounded-3xl border border-stone-200/60 bg-gradient-to-br from-white via-stone-50/50 to-amber-50/30 p-6 transition-all duration-500 hover:border-amber-200/60">
                                                 <div className="absolute -top-4 -right-4 opacity-[0.07] transition-all duration-500 group-hover:opacity-[0.12]">
                                                     <Quote className="size-24 rotate-180 text-amber-600" />
                                                 </div>

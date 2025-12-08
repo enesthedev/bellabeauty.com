@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Admin\Services;
+namespace App\Actions\Services;
 
 use App\Models\Service;
 use Inertia\Inertia;
@@ -11,21 +11,20 @@ class ShowServicesPage
     public function __invoke(): Response
     {
         $services = Service::query()
+            ->where('is_active', true)
             ->orderByDesc('id')
             ->get()
             ->map(fn (Service $service) => [
                 'id' => $service->id,
+                'slug' => $service->slug,
                 'name' => $service->name,
                 'description' => $service->description,
-                'content' => $service->content,
                 'price' => $service->price,
                 'duration' => $service->duration,
-                'is_active' => $service->is_active,
                 'image_url' => $service->image_url,
-                'created_at' => $service->created_at->toDateTimeString(),
             ]);
 
-        return Inertia::render('admin/services/index', [
+        return Inertia::render('services/index', [
             'services' => $services,
         ]);
     }

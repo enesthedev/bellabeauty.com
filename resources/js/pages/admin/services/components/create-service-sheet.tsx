@@ -1,4 +1,6 @@
 import CreateService from '@/actions/App/Actions/Admin/Services/CreateService';
+import UploadContentImage from '@/actions/App/Actions/Admin/Services/UploadContentImage';
+import { TiptapEditor } from '@/components/tiptap/tiptap-editor';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,8 +15,9 @@ import {
 import { useSidebarCount } from '@/contexts/sidebar-count-context';
 import { useForm } from '@inertiajs/react';
 import { Upload } from 'lucide-react';
-import { type ChangeEvent, type FormEvent, useRef } from 'react';
+import { type ChangeEvent, type FormEvent, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
     open: boolean;
@@ -26,12 +29,16 @@ export function CreateServiceSheet({ open, onOpenChange }: Props) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { refetch } = useSidebarCount();
 
+    const sessionKey = useMemo(() => uuidv4(), []);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         description: '',
+        content: '',
         price: '',
         duration: '',
         image: null as File | null,
+        session_key: sessionKey,
     });
 
     const handleSubmit = (e: FormEvent) => {
@@ -93,16 +100,37 @@ export function CreateServiceSheet({ open, onOpenChange }: Props) {
                             </Label>
                             <textarea
                                 id="description"
-                                className="min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+                                className="min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                                 value={data.description}
                                 onChange={(e) =>
                                     setData('description', e.target.value)
                                 }
-                                placeholder={t('Enter service description')}
+                                placeholder={t(
+                                    'Short description for homepage',
+                                )}
                             />
                             {errors.description && (
                                 <p className="text-sm text-destructive">
                                     {errors.description}
+                                </p>
+                            )}
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label>{t('Content')}</Label>
+                            <TiptapEditor
+                                content={data.content}
+                                onChange={(content) =>
+                                    setData('content', content)
+                                }
+                                placeholder={t('Detailed service content...')}
+                                editorClassName="min-h-[150px]"
+                                uploadEndpoint={UploadContentImage.url()}
+                                sessionKey={sessionKey}
+                            />
+                            {errors.content && (
+                                <p className="text-sm text-destructive">
+                                    {errors.content}
                                 </p>
                             )}
                         </div>

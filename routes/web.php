@@ -8,18 +8,23 @@ use App\Actions\Admin\GetSidebarCounts;
 use App\Actions\Admin\Services\CreateService;
 use App\Actions\Admin\Services\DeleteService;
 use App\Actions\Admin\Services\GetServicesCount;
-use App\Actions\Admin\Services\ShowServicesPage;
+use App\Actions\Admin\Services\ShowServicesPage as AdminShowServicesPage;
 use App\Actions\Admin\Services\UpdateService;
+use App\Actions\Admin\Services\UploadContentImage;
 use App\Actions\Admin\Settings\DeleteProfile;
 use App\Actions\Admin\Settings\ShowPasswordPage;
 use App\Actions\Admin\Settings\ShowProfilePage;
 use App\Actions\Admin\Settings\UpdatePassword;
 use App\Actions\Admin\Settings\UpdateProfile;
 use App\Actions\Admin\ShowOverviewPage;
+use App\Actions\Services\ShowServiceDetailPage;
+use App\Actions\Services\ShowServicesPage;
 use App\Actions\ShowWelcomePage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowWelcomePage::class)->name('home');
+Route::get('/services', ShowServicesPage::class)->name('services.index');
+Route::get('/services/{service}', ShowServiceDetailPage::class)->name('services.show');
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', ShowOverviewPage::class)->name('overview');
@@ -30,9 +35,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('/comments', CreateComment::class)->name('comments.store');
     Route::delete('/comments/{comment}', DeleteComment::class)->name('comments.destroy');
 
-    Route::get('/services', ShowServicesPage::class)->name('services.index');
+    Route::get('/services', AdminShowServicesPage::class)->name('services.index');
     Route::get('/services/count', GetServicesCount::class)->name('services.count');
     Route::post('/services', CreateService::class)->name('services.store');
+    Route::post('/services/upload-content-image', UploadContentImage::class)->name('services.upload-content-image');
     Route::put('/services/{service}', UpdateService::class)->name('services.update');
     Route::delete('/services/{service}', DeleteService::class)->name('services.destroy');
 });

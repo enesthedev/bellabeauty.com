@@ -1,4 +1,6 @@
 import UpdateService from '@/actions/App/Actions/Admin/Services/UpdateService';
+import UploadContentImage from '@/actions/App/Actions/Admin/Services/UploadContentImage';
+import { TiptapEditor } from '@/components/tiptap/tiptap-editor';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -13,8 +15,15 @@ import {
 } from '@/components/ui/sheet';
 import { useForm } from '@inertiajs/react';
 import { Upload } from 'lucide-react';
-import { type ChangeEvent, type FormEvent, useEffect, useRef } from 'react';
+import {
+    type ChangeEvent,
+    type FormEvent,
+    useEffect,
+    useMemo,
+    useRef,
+} from 'react';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 import { type Service } from '../columns';
 
 interface Props {
@@ -27,27 +36,37 @@ export function EditServiceSheet({ open, onOpenChange, service }: Props) {
     const { t } = useTranslation();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const { data, setData, put, processing, errors, reset } = useForm({
-        name: '',
-        description: '',
-        price: '',
-        duration: '',
-        is_active: true,
-        image: null as File | null,
-    });
+    const sessionKey = useMemo(() => uuidv4(), []);
+
+    const { data, setData, put, processing, errors, reset } = useForm(
+        service
+            ? {
+                  name: service.name,
+                  description: service.description || '',
+                  content: service.content || '',
+                  price: service.price,
+                  duration: service.duration.toString(),
+                  is_active: service.is_active,
+                  image: null as File | null,
+                  session_key: sessionKey,
+              }
+            : {},
+    );
 
     useEffect(() => {
         if (service) {
             setData({
                 name: service.name,
                 description: service.description || '',
+                content: service.content || '',
                 price: service.price,
                 duration: service.duration.toString(),
                 is_active: service.is_active,
                 image: null,
+                session_key: sessionKey,
             });
         }
-    }, [service]);
+    }, [service, sessionKey]);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -111,16 +130,37 @@ export function EditServiceSheet({ open, onOpenChange, service }: Props) {
                             </Label>
                             <textarea
                                 id="edit-description"
-                                className="min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+                                className="min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                                 value={data.description}
                                 onChange={(e) =>
                                     setData('description', e.target.value)
                                 }
-                                placeholder={t('Enter service description')}
+                                placeholder={t(
+                                    'Short description for homepage',
+                                )}
                             />
                             {errors.description && (
                                 <p className="text-sm text-destructive">
                                     {errors.description}
+                                </p>
+                            )}
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label>{t('Content')}</Label>
+                            <TiptapEditor
+                                content={data.content}
+                                onChange={(content) =>
+                                    setData('content', content)
+                                }
+                                placeholder={t('Detailed service content...')}
+                                editorClassName="min-h-[150px]"
+                                uploadEndpoint={UploadContentImage.url()}
+                                sessionKey={sessionKey}
+                            />
+                            {errors.content && (
+                                <p className="text-sm text-destructive">
+                                    {errors.content}
                                 </p>
                             )}
                         </div>
@@ -258,4 +298,3 @@ export function EditServiceSheet({ open, onOpenChange, service }: Props) {
         </Sheet>
     );
 }
-
