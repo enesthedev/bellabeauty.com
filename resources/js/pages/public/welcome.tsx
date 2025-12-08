@@ -4,12 +4,25 @@ import { MapPin, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ActionButton } from './components/action-button';
 import { Animated } from './components/animated';
+import { CommentsSection } from './components/comments-section';
 import { Section } from './components/section';
 import { VideoBackground } from './components/video-background';
 
 import Layout from './layout';
 
-export default function Welcome() {
+interface Comment {
+    id: number;
+    author: string;
+    content: string;
+    rating: number;
+    avatar_url: string | null;
+}
+
+interface Props {
+    comments: Comment[];
+}
+
+export default function Welcome({ comments }: Props) {
     const { t } = useTranslation();
 
     return (
@@ -60,24 +73,8 @@ export default function Welcome() {
                 </div>
             </Section>
 
-            <Section
-                id="test"
-                ariaLabel={t('Test Section')}
-                className="flex items-center justify-center bg-gradient-to-br from-rose-50 to-pink-100"
-            >
-                <div className="text-center">
-                    <Animated className="delay-200">
-                        <h2 className="mb-4 text-4xl font-bold text-gray-800">
-                            {t('Test Section')}
-                        </h2>
-                    </Animated>
-                    <Animated className="delay-[400ms]">
-                        <p className="text-lg text-gray-600">
-                            {t('This is a test section for snap scroll')}
-                        </p>
-                    </Animated>
-                </div>
-            </Section>
+            <CommentsSection comments={comments} />
         </Layout>
     );
 }
+

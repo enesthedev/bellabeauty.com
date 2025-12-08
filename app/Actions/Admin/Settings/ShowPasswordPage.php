@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Settings;
+namespace App\Actions\Admin\Settings;
 
 use Inertia\Inertia;
 use Inertia\Response;

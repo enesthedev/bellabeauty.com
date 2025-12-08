@@ -1,18 +1,24 @@
 <?php
 
-use App\Actions\Settings\DeleteProfile;
-use App\Actions\Settings\ShowPasswordPage;
-use App\Actions\Settings\ShowProfilePage;
-use App\Actions\Settings\UpdatePassword;
-use App\Actions\Settings\UpdateProfile;
-use App\Actions\ShowDashboardPage;
+use App\Actions\Admin\Comments\CreateComment;
+use App\Actions\Admin\Comments\DeleteComment;
+use App\Actions\Admin\Comments\ShowCommentsPage;
+use App\Actions\Admin\Settings\DeleteProfile;
+use App\Actions\Admin\Settings\ShowPasswordPage;
+use App\Actions\Admin\Settings\ShowProfilePage;
+use App\Actions\Admin\Settings\UpdatePassword;
+use App\Actions\Admin\Settings\UpdateProfile;
+use App\Actions\Admin\ShowOverviewPage;
 use App\Actions\ShowWelcomePage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ShowWelcomePage::class)->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', ShowDashboardPage::class)->name('dashboard');
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', ShowOverviewPage::class)->name('overview');
+    Route::get('/comments', ShowCommentsPage::class)->name('comments.index');
+    Route::post('/comments', CreateComment::class)->name('comments.store');
+    Route::delete('/comments/{comment}', DeleteComment::class)->name('comments.destroy');
 });
 
 Route::middleware('auth')->group(function () {

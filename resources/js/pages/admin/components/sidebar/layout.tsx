@@ -33,6 +33,7 @@ import { Shell } from '../shell/shell';
 import { ContentHeader } from './content-header';
 import { Navigation } from './navigation';
 import { UserNavigation } from './user-navigation';
+import admin from '@/routes/admin';
 
 export default function Layout({
     children,
@@ -42,19 +43,16 @@ export default function Layout({
     const { auth } = usePage<SharedData>().props;
     const { t } = useTranslation();
 
-    // Navigasyon grupları
     const navigationGroups: NavGroup[] = [
-        // Ana navigasyon grubu (başlıksız)
         {
             items: [
                 {
                     title: t('Overview'),
-                    url: dashboard.url(),
+                    url: admin.overview().url,
                     icon: LayoutDashboard,
                 },
             ],
         },
-        // İçerik yönetimi grubu
         {
             title: t('Content Management'),
             collapsible: true,
@@ -62,7 +60,7 @@ export default function Layout({
             items: [
                 {
                     title: t('Comments'),
-                    url: '/admin/comments',
+                    url: admin.comments.index().url,
                     icon: MessageSquare,
                     badge: 12, // Badge örneği
                 },
@@ -109,7 +107,7 @@ export default function Layout({
                     <SidebarMenu>
                         <SidebarMenuItem>
                             <div className="flex">
-                                <Link href={dashboard()} prefetch>
+                                <Link href={admin.overview().url} prefetch>
                                     <AppLogo />
                                 </Link>
                             </div>

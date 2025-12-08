@@ -7,20 +7,21 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { dashboard } from '@/routes';
+
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { TrendingDown, TrendingUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Layout from './layout';
+import admin from '@/routes/admin';
 
-export default function Dashboard() {
+export default function Overview() {
     const { t } = useTranslation();
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: t('Overview'),
-            href: dashboard().url,
+            href: admin.overview().url,
         },
     ];
 

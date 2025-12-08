@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Admin;
 
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ShowDashboardPage
+class ShowOverviewPage
 {
     public function __invoke(): Response
     {
-        return Inertia::render('admin/dashboard');
+        return Inertia::render('admin/overview');
     }
 }
