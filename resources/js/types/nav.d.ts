@@ -34,6 +34,7 @@ export interface NavItem {
     icon?: LucideIcon | null;
     badge?: string | number;
     isActive?: boolean;
+    exactMatch?: boolean;
     disabled?: boolean;
     action?: NavItemAction;
     items?: NavItem[];

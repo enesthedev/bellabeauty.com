@@ -28,14 +28,21 @@ import {
 import type { NavGroup, NavItem, NavItemAction } from '@/types/nav';
 import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /**
  * URL'in aktif olup olmadığını kontrol eder
+ * @param exactMatch - Eğer true ise sadece tam URL eşleşmesi kontrol edilir
  */
-function isActiveUrl(currentUrl: string, itemUrl?: string): boolean {
+function isActiveUrl(
+    currentUrl: string,
+    itemUrl?: string,
+    exactMatch?: boolean,
+): boolean {
     if (!itemUrl) return false;
+    if (exactMatch) {
+        return currentUrl === itemUrl;
+    }
     return currentUrl === itemUrl || currentUrl.startsWith(itemUrl + '/');
 }
 
@@ -45,7 +52,6 @@ function isActiveUrl(currentUrl: string, itemUrl?: string): boolean {
 function MenuAction({ action }: { action: NavItemAction }) {
     const { t } = useTranslation();
 
-    // Dropdown menü varsa
     if (action.dropdownItems && action.dropdownItems.length > 0) {
         return (
             <DropdownMenu>
@@ -89,7 +95,6 @@ function MenuAction({ action }: { action: NavItemAction }) {
         );
     }
 
-    // Tek buton
     return (
         <SidebarMenuAction
             onClick={action.onClick}
@@ -108,7 +113,8 @@ function NavLink({ item }: { item: NavItem }) {
     const { url: currentUrl } = usePage();
     const { t } = useTranslation();
 
-    const isActive = item.isActive ?? isActiveUrl(currentUrl, item.url);
+    const isActive =
+        item.isActive ?? isActiveUrl(currentUrl, item.url, item.exactMatch);
 
     return (
         <SidebarMenuItem>
@@ -194,7 +200,6 @@ function NavSubItem({ item }: { item: NavItem }) {
 
     const isActive = item.isActive ?? isActiveUrl(currentUrl, item.url);
 
-    // Nested submenu desteği
     if (item.items && item.items.length > 0) {
         return (
             <Collapsible asChild defaultOpen={false}>
@@ -237,7 +242,6 @@ function CollapsibleGroup({ group }: { group: NavGroup }) {
     const { t } = useTranslation();
     const { url: currentUrl } = usePage();
 
-    // Grup içinde aktif öğe var mı kontrol et
     const hasActiveItem = group.items.some(
         (item) =>
             isActiveUrl(currentUrl, item.url) ||
@@ -335,10 +339,6 @@ function NavigationGroup({ group }: { group: NavGroup }) {
     return <NormalGroup group={group} />;
 }
 
-// =============================================================================
-// ANA NAVİGASYON BİLEŞENİ
-// =============================================================================
-
 interface NavigationProps {
     /**
      * Navigasyon grupları - grup başlıkları, collapsible gruplar vb. için kullanın
@@ -362,7 +362,6 @@ export function Navigation({
     items,
     isLoading = false,
 }: NavigationProps) {
-    // Yüklenme durumu
     if (isLoading) {
         return (
             <SidebarGroup>
@@ -379,7 +378,6 @@ export function Navigation({
         );
     }
 
-    // Grup bazlı navigasyon (yeni yapı)
     if (groups && groups.length > 0) {
         return (
             <>
@@ -390,7 +388,6 @@ export function Navigation({
         );
     }
 
-    // Geriye dönük uyumluluk: items prop'u ile basit kullanım
     if (items && items.length > 0) {
         return (
             <SidebarGroup>
@@ -412,5 +409,4 @@ export function Navigation({
     return null;
 }
 
-// Tip exports
 export type { NavGroup, NavItem, NavItemAction };

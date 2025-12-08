@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+} from '@/components/ui/sheet';
+import { useCommentsCount } from '@/contexts/comments-count-context';
 import { useForm } from '@inertiajs/react';
 import { Star, Upload } from 'lucide-react';
 import { type ChangeEvent, type FormEvent, useRef } from 'react';
@@ -19,9 +20,10 @@ interface Props {
     onOpenChange: (open: boolean) => void;
 }
 
-export function CreateCommentDialog({ open, onOpenChange }: Props) {
+export function CreateCommentSheet({ open, onOpenChange }: Props) {
     const { t } = useTranslation();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { refetch } = useCommentsCount();
 
     const { data, setData, post, processing, errors, reset } = useForm({
         author: '',
@@ -36,6 +38,7 @@ export function CreateCommentDialog({ open, onOpenChange }: Props) {
             onSuccess: () => {
                 reset();
                 onOpenChange(false);
+                refetch();
             },
             forceFormData: true,
         });
@@ -54,27 +57,33 @@ export function CreateCommentDialog({ open, onOpenChange }: Props) {
     };
 
     return (
-        <Dialog open={open} onOpenChange={handleOpenChange}>
-            <DialogContent className="sm:max-w-[425px]">
-                <form onSubmit={handleSubmit}>
-                    <DialogHeader>
-                        <DialogTitle>{t('Add New Comment')}</DialogTitle>
-                        <DialogDescription>
-                            {t('Add a customer review to display on your website')}
-                        </DialogDescription>
-                    </DialogHeader>
+        <Sheet open={open} onOpenChange={handleOpenChange}>
+            <SheetContent side="left">
+                <form onSubmit={handleSubmit} className="flex h-full flex-col">
+                    <SheetHeader>
+                        <SheetTitle>{t('Add New Comment')}</SheetTitle>
+                        <SheetDescription>
+                            {t(
+                                'Add a customer review to display on your website',
+                            )}
+                        </SheetDescription>
+                    </SheetHeader>
 
-                    <div className="grid gap-4 py-4">
+                    <div className="flex-1 space-y-4 overflow-y-auto p-4">
                         <div className="grid gap-2">
                             <Label htmlFor="author">{t('Author Name')}</Label>
                             <Input
                                 id="author"
                                 value={data.author}
-                                onChange={(e) => setData('author', e.target.value)}
+                                onChange={(e) =>
+                                    setData('author', e.target.value)
+                                }
                                 placeholder={t('Enter author name')}
                             />
                             {errors.author && (
-                                <p className="text-sm text-destructive">{errors.author}</p>
+                                <p className="text-sm text-destructive">
+                                    {errors.author}
+                                </p>
                             )}
                         </div>
 
@@ -82,13 +91,17 @@ export function CreateCommentDialog({ open, onOpenChange }: Props) {
                             <Label htmlFor="content">{t('Comment')}</Label>
                             <textarea
                                 id="content"
-                                className="min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+                                className="min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                                 value={data.content}
-                                onChange={(e) => setData('content', e.target.value)}
+                                onChange={(e) =>
+                                    setData('content', e.target.value)
+                                }
                                 placeholder={t('Enter customer review')}
                             />
                             {errors.content && (
-                                <p className="text-sm text-destructive">{errors.content}</p>
+                                <p className="text-sm text-destructive">
+                                    {errors.content}
+                                </p>
                             )}
                         </div>
 
@@ -103,16 +116,19 @@ export function CreateCommentDialog({ open, onOpenChange }: Props) {
                                         className="focus:outline-none"
                                     >
                                         <Star
-                                            className={`size-6 cursor-pointer transition-colors ${i < data.rating
+                                            className={`size-7 cursor-pointer transition-colors ${
+                                                i < data.rating
                                                     ? 'fill-yellow-400 text-yellow-400'
                                                     : 'text-gray-300 hover:text-yellow-300'
-                                                }`}
+                                            }`}
                                         />
                                     </button>
                                 ))}
                             </div>
                             {errors.rating && (
-                                <p className="text-sm text-destructive">{errors.rating}</p>
+                                <p className="text-sm text-destructive">
+                                    {errors.rating}
+                                </p>
                             )}
                         </div>
 
@@ -129,10 +145,15 @@ export function CreateCommentDialog({ open, onOpenChange }: Props) {
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={() => fileInputRef.current?.click()}
+                                    onClick={() =>
+                                        fileInputRef.current?.click()
+                                    }
+                                    className="w-full justify-start"
                                 >
                                     <Upload className="mr-2 size-4" />
-                                    {data.avatar ? data.avatar.name : t('Choose Image')}
+                                    {data.avatar
+                                        ? data.avatar.name
+                                        : t('Choose Image')}
                                 </Button>
                                 {data.avatar && (
                                     <Button
@@ -146,12 +167,14 @@ export function CreateCommentDialog({ open, onOpenChange }: Props) {
                                 )}
                             </div>
                             {errors.avatar && (
-                                <p className="text-sm text-destructive">{errors.avatar}</p>
+                                <p className="text-sm text-destructive">
+                                    {errors.avatar}
+                                </p>
                             )}
                         </div>
                     </div>
 
-                    <DialogFooter>
+                    <SheetFooter>
                         <Button
                             type="button"
                             variant="outline"
@@ -162,9 +185,9 @@ export function CreateCommentDialog({ open, onOpenChange }: Props) {
                         <Button type="submit" disabled={processing}>
                             {processing ? t('Saving...') : t('Save Comment')}
                         </Button>
-                    </DialogFooter>
+                    </SheetFooter>
                 </form>
-            </DialogContent>
-        </Dialog>
+            </SheetContent>
+        </Sheet>
     );
 }

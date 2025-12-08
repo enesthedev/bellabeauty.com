@@ -2,6 +2,7 @@
 
 use App\Actions\Admin\Comments\CreateComment;
 use App\Actions\Admin\Comments\DeleteComment;
+use App\Actions\Admin\Comments\GetCommentsCount;
 use App\Actions\Admin\Comments\ShowCommentsPage;
 use App\Actions\Admin\Settings\DeleteProfile;
 use App\Actions\Admin\Settings\ShowPasswordPage;
@@ -17,6 +18,7 @@ Route::get('/', ShowWelcomePage::class)->name('home');
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', ShowOverviewPage::class)->name('overview');
     Route::get('/comments', ShowCommentsPage::class)->name('comments.index');
+    Route::get('/comments/count', GetCommentsCount::class)->name('comments.count');
     Route::post('/comments', CreateComment::class)->name('comments.store');
     Route::delete('/comments/{comment}', DeleteComment::class)->name('comments.destroy');
 });

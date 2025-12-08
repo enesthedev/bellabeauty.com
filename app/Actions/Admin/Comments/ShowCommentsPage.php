@@ -13,7 +13,7 @@ class ShowCommentsPage
         $comments = Comment::query()
             ->orderByDesc('id')
             ->get()
-            ->map(fn (Comment $comment) => [
+            ->map(fn(Comment $comment) => [
                 'id' => $comment->id,
                 'author' => $comment->author,
                 'content' => $comment->content,
