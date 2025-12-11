@@ -78,69 +78,13 @@ export default function UpdateServicePage({ service }: Props) {
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="description">{t('Description')}</Label>
-                        <textarea
-                            id="description"
-                            className="min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
-                            value={data.description}
-                            onChange={(e) =>
-                                setData('description', e.target.value)
-                            }
-                            placeholder={t('Short description for homepage')}
-                        />
-                        {errors.description && (
-                            <p className="text-sm text-destructive">
-                                {errors.description}
-                            </p>
-                        )}
-                    </div>
-
-                    <div className="grid gap-2">
-                        <Label>{t('Content')}</Label>
-                        <TiptapEditor
-                            content={data.content}
-                            onChange={(content) => setData('content', content)}
-                            placeholder={t('Detailed service content...')}
-                            editorClassName="min-h-[200px]"
-                            uploadEndpoint={UploadContentImage.url()}
-                            sessionKey={sessionKey}
-                        />
-                        {errors.content && (
-                            <p className="text-sm text-destructive">
-                                {errors.content}
-                            </p>
-                        )}
-                    </div>
-
-                    <div className="grid gap-2">
-                        <Label htmlFor="duration">
-                            {t('Duration')} ({t('min')})
-                        </Label>
-                        <Input
-                            id="duration"
-                            type="number"
-                            min="1"
-                            value={data.duration}
-                            onChange={(e) =>
-                                setData('duration', e.target.value)
-                            }
-                            placeholder="30"
-                        />
-                        {errors.duration && (
-                            <p className="text-sm text-destructive">
-                                {errors.duration}
-                            </p>
-                        )}
-                    </div>
-
-                    <div className="grid gap-2">
-                        <Label>{t('Image')}</Label>
+                        <Label>{t('Cover Image')}</Label>
                         {service.image_url && !data.image && (
                             <div className="mb-2">
                                 <img
                                     src={service.image_url}
                                     alt={service.name}
-                                    className="h-20 w-auto rounded-md object-cover"
+                                    className="h-[20vh] w-full rounded-md object-cover"
                                 />
                             </div>
                         )}
@@ -177,6 +121,67 @@ export default function UpdateServicePage({ service }: Props) {
                         {errors.image && (
                             <p className="text-sm text-destructive">
                                 {errors.image}
+                            </p>
+                        )}
+                    </div>
+
+                    <div className="grid grid-cols-4 items-start gap-4">
+                        <div className="col-span-3 grid gap-2">
+                            <Label htmlFor="description">
+                                {t('Description')}
+                            </Label>
+                            <textarea
+                                id="description"
+                                className="min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+                                value={data.description}
+                                onChange={(e) =>
+                                    setData('description', e.target.value)
+                                }
+                                placeholder={t(
+                                    'Short description for homepage',
+                                )}
+                            />
+                            {errors.description && (
+                                <p className="text-sm text-destructive">
+                                    {errors.description}
+                                </p>
+                            )}
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="duration">
+                                {t('Duration')} ({t('min')})
+                            </Label>
+                            <Input
+                                id="duration"
+                                type="number"
+                                min="1"
+                                value={data.duration}
+                                onChange={(e) =>
+                                    setData('duration', e.target.value)
+                                }
+                                placeholder="30"
+                            />
+                            {errors.duration && (
+                                <p className="text-sm text-destructive">
+                                    {errors.duration}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label>{t('Content')}</Label>
+                        <TiptapEditor
+                            content={data.content}
+                            onChange={(content) => setData('content', content)}
+                            placeholder={t('Detailed service content...')}
+                            editorClassName="min-h-[200px]"
+                            uploadEndpoint={UploadContentImage.url()}
+                            sessionKey={sessionKey}
+                        />
+                        {errors.content && (
+                            <p className="text-sm text-destructive">
+                                {errors.content}
                             </p>
                         )}
                     </div>
