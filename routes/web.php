@@ -11,6 +11,7 @@ use App\Actions\Admin\Services\ShowUpdateService;
 use App\Actions\Admin\Services\UpdateService;
 use App\Actions\Admin\Services\UploadContentImage;
 use App\Actions\Admin\Settings\DeleteProfile;
+use App\Actions\Admin\Settings\ShowUpdatePassword;
 use App\Actions\Admin\Settings\ShowUpdateProfile;
 use App\Actions\Admin\Settings\UpdatePassword;
 use App\Actions\Admin\Settings\UpdateProfile;
@@ -49,7 +50,7 @@ Route::middleware(['auth', 'verified', HandleAdminInertiaRequests::class])
         Route::patch('settings/profile', UpdateProfile::class)->name('profile.update');
         Route::delete('settings/profile', DeleteProfile::class)->name('profile.destroy');
 
-        Route::get('settings/password', ShowUpdateProfile::class)->name('user-password.edit');
+        Route::get('settings/password', ShowUpdatePassword::class)->name('user-password.edit');
 
         Route::put('settings/password', UpdatePassword::class)
             ->middleware('throttle:6,1')
