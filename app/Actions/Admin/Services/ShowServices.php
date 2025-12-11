@@ -19,9 +19,7 @@ class ShowServices
                 'description' => $service->description,
                 'slug' => $service->slug,
                 'content' => $service->content,
-                'price' => $service->price,
                 'duration' => $service->duration,
-                'is_active' => $service->is_active,
                 'image_url' => $service->image_url,
                 'created_at' => $service->created_at->toDateTimeString(),
             ]);

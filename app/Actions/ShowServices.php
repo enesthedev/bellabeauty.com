@@ -11,7 +11,6 @@ class ShowServices
     public function __invoke(): Response
     {
         $services = Service::query()
-            ->where('is_active', true)
             ->orderByDesc('id')
             ->get()
             ->map(fn (Service $service) => [
@@ -19,7 +18,6 @@ class ShowServices
                 'slug' => $service->slug,
                 'name' => $service->name,
                 'description' => $service->description,
-                'price' => $service->price,
                 'duration' => $service->duration,
                 'image_url' => $service->image_url,
             ]);

@@ -27,7 +27,6 @@ class ShowWelcome
             ]);
 
         $services = Service::query()
-            ->where('is_active', true)
             ->orderByDesc('id')
             ->limit(6)
             ->get()
@@ -36,7 +35,6 @@ class ShowWelcome
                 'slug' => $service->slug,
                 'name' => $service->name,
                 'description' => $service->description,
-                'price' => $service->price,
                 'duration' => $service->duration,
                 'image_url' => $service->image_url,
             ]);

@@ -15,9 +15,7 @@ class UpdateService
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
             'duration' => ['required', 'integer', 'min:1'],
-            'is_active' => ['boolean'],
             'image' => ['nullable', 'image', 'max:2048'],
             'session_key' => ['nullable', 'uuid'],
         ]);
@@ -26,9 +24,7 @@ class UpdateService
             'name' => $validated['name'],
             'description' => $validated['description'] ?? null,
             'content' => $validated['content'] ?? null,
-            'price' => $validated['price'],
             'duration' => $validated['duration'],
-            'is_active' => $validated['is_active'] ?? $service->is_active,
         ]);
 
         if ($request->hasFile('image')) {

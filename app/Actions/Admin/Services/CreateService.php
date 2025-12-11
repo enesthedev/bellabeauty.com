@@ -15,7 +15,6 @@ class CreateService
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
             'duration' => ['required', 'integer', 'min:1'],
             'image' => ['nullable', 'image', 'max:2048'],
             'session_key' => ['nullable', 'uuid'],
@@ -25,7 +24,6 @@ class CreateService
             'name' => $validated['name'],
             'description' => $validated['description'] ?? null,
             'content' => $validated['content'] ?? null,
-            'price' => $validated['price'],
             'duration' => $validated['duration'],
         ]);
 

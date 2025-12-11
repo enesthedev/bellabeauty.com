@@ -17,9 +17,7 @@ class ShowUpdateService
                 'slug' => $service->slug,
                 'description' => $service->description,
                 'content' => $service->content,
-                'price' => $service->price,
                 'duration' => $service->duration,
-                'is_active' => $service->is_active,
                 'image_url' => $service->image_url,
             ],
         ]);

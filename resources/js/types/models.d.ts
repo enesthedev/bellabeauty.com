@@ -28,9 +28,7 @@ export type Service = Timestamps & {
     slug: string;
     description: string | null;
     content: string | null;
-    price: string;
     duration: number;
-    is_active: boolean;
     image_url: string | null;
 };
 

@@ -15,27 +15,21 @@ class ServiceSeeder extends Seeder
                 'name' => 'Profesyonel Cilt Bakımı',
                 'description' => 'Cildinizin ihtiyaçlarına özel olarak tasarlanmış, derinlemesine temizlik ve nemlendirme içeren kapsamlı yüz bakımı.',
                 'content' => $this->getCiltBakimiContent(),
-                'price' => 1250.00,
                 'duration' => 75,
-                'is_active' => true,
                 'image_file' => 'woman-receiving-facial-mask-applied-by-beautician.jpg',
             ],
             [
                 'name' => 'Kalıcı Oje & Nail Art',
                 'description' => 'Profesyonel kalıcı oje uygulaması ve özel tasarım nail art ile tırnaklarınızı sanata dönüştürün.',
                 'content' => $this->getKaliciOjeContent(),
-                'price' => 650.00,
                 'duration' => 60,
-                'is_active' => true,
                 'image_file' => 'nail-art.jpg',
             ],
             [
                 'name' => 'Kaş & Kirpik Tasarımı',
                 'description' => 'Yüz hatlarınıza uygun profesyonel kaş şekillendirme ve kirpik lifting ile bakışlarınızı canlandırın.',
                 'content' => $this->getKasKirpikContent(),
-                'price' => 900.00,
                 'duration' => 90,
-                'is_active' => true,
                 'image_file' => 'woman-with-eyebrow-and-eyelash-design-applied.jpg',
             ],
         ];
@@ -80,7 +74,7 @@ class ServiceSeeder extends Seeder
                 </h3>
                 <p class="text-sm">Özel cihazlarla cildinizin nem, yağ ve elastikiyet seviyelerini ölçerek size özel bir yol haritası çıkarıyoruz.</p>
             </div>
-            
+
             <div class="bg-pink-50/50 p-6 rounded-2xl border border-pink-100">
                 <h3 class="text-xl font-serif text-pink-900 mb-4 flex items-center">
                     <span class="w-8 h-8 rounded-full bg-pink-200 flex items-center justify-center mr-3 text-sm">02</span>

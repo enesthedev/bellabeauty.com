@@ -35,7 +35,6 @@ interface Service {
     slug: string;
     name: string;
     description: string | null;
-    price: string;
     duration: number;
     image_url: string | null;
 }
@@ -181,26 +180,10 @@ export default function Welcome({ comments, services }: Props) {
                                         )}
 
                                         <div className="flex items-center justify-between">
-                                            <div className="flex items-center gap-3">
-                                                <span className="font-semibold text-amber-600">
-                                                    {new Intl.NumberFormat(
-                                                        'tr-TR',
-                                                        {
-                                                            style: 'currency',
-                                                            currency: 'TRY',
-                                                        },
-                                                    ).format(
-                                                        parseFloat(
-                                                            service.price,
-                                                        ),
-                                                    )}
-                                                </span>
-                                                <span className="flex items-center gap-1 text-sm text-stone-500">
-                                                    <Clock className="size-3.5" />
-                                                    {service.duration}{' '}
-                                                    {t('min')}
-                                                </span>
-                                            </div>
+                                            <span className="flex items-center gap-1 text-sm text-stone-500">
+                                                <Clock className="size-3.5" />
+                                                {service.duration} {t('min')}
+                                            </span>
                                             <ArrowRight className="size-5 text-stone-400 transition-all group-hover:translate-x-1 group-hover:text-amber-600" />
                                         </div>
                                     </div>

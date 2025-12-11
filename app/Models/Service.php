@@ -18,9 +18,7 @@ class Service extends Model implements HasMedia
         'slug',
         'description',
         'content',
-        'price',
         'duration',
-        'is_active',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -38,8 +36,6 @@ class Service extends Model implements HasMedia
     protected function casts(): array
     {
         return [
-            'is_active' => 'boolean',
-            'price' => 'decimal:2',
             'duration' => 'integer',
         ];
     }

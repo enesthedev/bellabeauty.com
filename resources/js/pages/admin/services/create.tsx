@@ -38,7 +38,6 @@ export default function CreateServicePage() {
         name: '',
         description: '',
         content: '',
-        price: '',
         duration: '',
         image: null as File | null,
         session_key: sessionKey,
@@ -127,47 +126,25 @@ export default function CreateServicePage() {
                         )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="price">{t('Price')} (TL)</Label>
-                            <Input
-                                id="price"
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                value={data.price}
-                                onChange={(e) =>
-                                    setData('price', e.target.value)
-                                }
-                                placeholder="0.00"
-                            />
-                            {errors.price && (
-                                <p className="text-sm text-destructive">
-                                    {errors.price}
-                                </p>
-                            )}
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="duration">
-                                {t('Duration')} ({t('min')})
-                            </Label>
-                            <Input
-                                id="duration"
-                                type="number"
-                                min="1"
-                                value={data.duration}
-                                onChange={(e) =>
-                                    setData('duration', e.target.value)
-                                }
-                                placeholder="30"
-                            />
-                            {errors.duration && (
-                                <p className="text-sm text-destructive">
-                                    {errors.duration}
-                                </p>
-                            )}
-                        </div>
+                    <div className="grid gap-2">
+                        <Label htmlFor="duration">
+                            {t('Duration')} ({t('min')})
+                        </Label>
+                        <Input
+                            id="duration"
+                            type="number"
+                            min="1"
+                            value={data.duration}
+                            onChange={(e) =>
+                                setData('duration', e.target.value)
+                            }
+                            placeholder="30"
+                        />
+                        {errors.duration && (
+                            <p className="text-sm text-destructive">
+                                {errors.duration}
+                            </p>
+                        )}
                     </div>
 
                     <div className="grid gap-2">

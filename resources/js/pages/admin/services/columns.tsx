@@ -1,5 +1,4 @@
 import ShowUpdateService from '@/actions/App/Actions/Admin/Services/ShowUpdateService';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { type Service } from '@/types/models';
 import { Link } from '@inertiajs/react';
@@ -44,21 +43,6 @@ export function getColumns({
             },
         },
         {
-            accessorKey: 'price',
-            header: t('Price'),
-            cell: ({ row }) => {
-                const price = parseFloat(row.getValue('price'));
-                return (
-                    <span className="font-medium">
-                        {new Intl.NumberFormat('tr-TR', {
-                            style: 'currency',
-                            currency: 'TRY',
-                        }).format(price)}
-                    </span>
-                );
-            },
-        },
-        {
             accessorKey: 'duration',
             header: t('Duration'),
             cell: ({ row }) => {
@@ -70,18 +54,6 @@ export function getColumns({
                             {duration} {t('min')}
                         </span>
                     </div>
-                );
-            },
-        },
-        {
-            accessorKey: 'is_active',
-            header: t('Status'),
-            cell: ({ row }) => {
-                const isActive = row.getValue('is_active') as boolean;
-                return (
-                    <Badge variant={isActive ? 'default' : 'secondary'}>
-                        {isActive ? t('Active') : t('Inactive')}
-                    </Badge>
                 );
             },
         },

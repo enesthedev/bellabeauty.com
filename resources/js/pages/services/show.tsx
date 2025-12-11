@@ -11,7 +11,6 @@ interface Service {
     name: string;
     description: string | null;
     content: string | null;
-    price: string;
     duration: number;
     image_url: string | null;
 }
@@ -21,7 +20,6 @@ interface RelatedService {
     slug: string;
     name: string;
     description: string | null;
-    price: string;
     duration: number;
     image_url: string | null;
 }
@@ -54,12 +52,6 @@ export default function ServiceShow({ service, relatedServices }: Props) {
                     </h1>
 
                     <div className="flex flex-wrap items-center gap-4">
-                        <span className="text-2xl font-bold text-amber-600">
-                            {new Intl.NumberFormat('tr-TR', {
-                                style: 'currency',
-                                currency: 'TRY',
-                            }).format(parseFloat(service.price))}
-                        </span>
                         <span className="flex items-center gap-1.5 rounded-full bg-stone-100 px-3 py-1.5 text-sm text-stone-600">
                             <Clock className="size-4" />
                             {service.duration} {t('min')}
@@ -109,18 +101,10 @@ export default function ServiceShow({ service, relatedServices }: Props) {
                                                 {related.name}
                                             </h3>
                                             <div className="flex items-center justify-between text-sm">
-                                                <span className="font-medium text-amber-600">
-                                                    {new Intl.NumberFormat(
-                                                        'tr-TR',
-                                                        {
-                                                            style: 'currency',
-                                                            currency: 'TRY',
-                                                        },
-                                                    ).format(
-                                                        parseFloat(
-                                                            related.price,
-                                                        ),
-                                                    )}
+                                                <span className="flex items-center gap-1 text-stone-500">
+                                                    <Clock className="size-3.5" />
+                                                    {related.duration}{' '}
+                                                    {t('min')}
                                                 </span>
                                                 <ArrowRight className="size-4 text-stone-400 transition-all group-hover:translate-x-1 group-hover:text-amber-600" />
                                             </div>

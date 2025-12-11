@@ -4,7 +4,6 @@ import UpdateService from '@/actions/App/Actions/Admin/Services/UpdateService';
 import UploadContentImage from '@/actions/App/Actions/Admin/Services/UploadContentImage';
 import { TiptapEditor } from '@/components/tiptap/tiptap-editor';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Service, type BreadcrumbItem } from '@/types';
@@ -40,9 +39,7 @@ export default function UpdateServicePage({ service }: Props) {
         name: service.name,
         description: service.description || '',
         content: service.content || '',
-        price: service.price,
         duration: service.duration.toString(),
-        is_active: service.is_active,
         image: null as File | null,
         session_key: sessionKey,
     });
@@ -115,67 +112,25 @@ export default function UpdateServicePage({ service }: Props) {
                         )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="price">{t('Price')} (TL)</Label>
-                            <Input
-                                id="price"
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                value={data.price}
-                                onChange={(e) =>
-                                    setData('price', e.target.value)
-                                }
-                                placeholder="0.00"
-                            />
-                            {errors.price && (
-                                <p className="text-sm text-destructive">
-                                    {errors.price}
-                                </p>
-                            )}
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="duration">
-                                {t('Duration')} ({t('min')})
-                            </Label>
-                            <Input
-                                id="duration"
-                                type="number"
-                                min="1"
-                                value={data.duration}
-                                onChange={(e) =>
-                                    setData('duration', e.target.value)
-                                }
-                                placeholder="30"
-                            />
-                            {errors.duration && (
-                                <p className="text-sm text-destructive">
-                                    {errors.duration}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 rounded-lg border p-3">
-                        <Checkbox
-                            id="is-active"
-                            checked={data.is_active}
-                            onCheckedChange={(checked) =>
-                                setData('is_active', checked === true)
+                    <div className="grid gap-2">
+                        <Label htmlFor="duration">
+                            {t('Duration')} ({t('min')})
+                        </Label>
+                        <Input
+                            id="duration"
+                            type="number"
+                            min="1"
+                            value={data.duration}
+                            onChange={(e) =>
+                                setData('duration', e.target.value)
                             }
+                            placeholder="30"
                         />
-                        <div className="space-y-0.5">
-                            <Label htmlFor="is-active">
-                                {t('Active Status')}
-                            </Label>
-                            <p className="text-sm text-muted-foreground">
-                                {t(
-                                    'When inactive, this service will not be displayed',
-                                )}
+                        {errors.duration && (
+                            <p className="text-sm text-destructive">
+                                {errors.duration}
                             </p>
-                        </div>
+                        )}
                     </div>
 
                     <div className="grid gap-2">
