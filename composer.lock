@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31def77dadbec3288de143db18073b3a",
+    "content-hash": "bf9fd6b264fa5d45c5878b0e95f2d953",
     "packages": [
         {
             "name": "archtechx/enums",
@@ -1188,6 +1188,93 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "enesthedev/translated-routes",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/enesthedev/translated-routes.git",
+                "reference": "8b0a0dfda46a21df423dbcc37637c2af33e161f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/enesthedev/translated-routes/zipball/8b0a0dfda46a21df423dbcc37637c2af33e161f6",
+                "reference": "8b0a0dfda46a21df423dbcc37637c2af33e161f6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^11.0||^12.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.16"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.14",
+                "nunomaduro/collision": "^8.8||^9.0",
+                "orchestra/testbench": "^9.0.0||^10.0.0",
+                "pestphp/pest": "^3.0||^4.0",
+                "pestphp/pest-plugin-arch": "^3.0||^4.0",
+                "pestphp/pest-plugin-laravel": "^3.0||^4.0",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "spatie/laravel-ray": "^1.35"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "TranslatedRoutes": "Enes\\TranslatedRoutes\\Facades\\TranslatedRoutes"
+                    },
+                    "providers": [
+                        "Enes\\TranslatedRoutes\\TranslatedRoutesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Enes\\TranslatedRoutes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enes Bayraktar",
+                    "email": "enes.bayraktar@outlook.com.tr",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple route translation for Laravel 11+. Just add ->translate() to your routes. Wildcard support, validation, export to JSON/JS/TS. Works with any locale management system.",
+            "homepage": "https://github.com/enesthedev/translated-routes",
+            "keywords": [
+                "i18n",
+                "laravel",
+                "laravel-11",
+                "locale",
+                "localization",
+                "multilingual",
+                "routes",
+                "seo",
+                "translated-routes"
+            ],
+            "support": {
+                "issues": "https://github.com/enesthedev/translated-routes/issues",
+                "source": "https://github.com/enesthedev/translated-routes/tree/3.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Enes",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-11-02T20:15:40+00:00"
         },
         {
             "name": "fruitcake/php-cors",

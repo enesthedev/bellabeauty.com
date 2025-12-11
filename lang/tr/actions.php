@@ -78,6 +78,7 @@ return [
     'open' => 'Açık',
     'open_website' => 'Web sitesinde aç',
     'preview' => 'Ön izleme',
+    'price' => 'Fiyat',
     'record' => 'Kayıt',
     'restore' => 'Eski haline getirmek',
     'save' => 'Kaydetmek',
