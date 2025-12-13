@@ -85,8 +85,8 @@ export async function seedHomePage(payload: Payload): Promise<void> {
   await payload.create({
     collection: 'pages',
     data: {
-      title: 'Home',
-      slug: 'home',
+      title: 'Anasayfa',
+      slug: 'ana-sayfa',
       layout: [
         {
           blockType: 'hero',
@@ -95,12 +95,12 @@ export async function seedHomePage(payload: Payload): Promise<void> {
           backgroundImage: thumbnailId,
           actions: [
             {
-              label: 'Yol Tarifi',
+              label: 'Yol Tarifi Alın',
               link: 'https://maps.app.goo.gl/ZEXiuMcWRDHEGtNz8',
               icon: 'map-pin',
             },
             {
-              label: 'Randevu Al',
+              label: 'Randevu Alın',
               link: 'https://wa.me/905438966543?text=Merhaba%20hizmetleriniz%20hakkında%20bilgi%20almak%20istiyorum',
               icon: 'phone',
             },
