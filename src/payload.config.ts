@@ -10,8 +10,10 @@ import { fileURLToPath } from 'url'
 import { GetPlatformProxyOptions } from 'wrangler'
 
 import { Media } from './collections/media'
+import { Pages } from './collections/pages'
 import { Services } from './collections/services'
 import { Users } from './collections/users'
+import { seedHomePage } from './seed'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,7 +33,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Services],
+  collections: [Users, Media, Services, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -49,6 +51,9 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { en, tr },
     fallbackLanguage: 'en',
+  },
+  onInit: async (payload) => {
+    await seedHomePage(payload)
   },
 })
 

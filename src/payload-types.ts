@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     services: Service;
+    pages: Page;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +81,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -180,9 +182,19 @@ export interface Service {
   content?:
     | (
         | {
-            heading: string;
+            heading?: string | null;
+            showLogo?: boolean | null;
             subheading?: string | null;
             backgroundImage?: (number | null) | Media;
+            backgroundVideo?: (number | null) | Media;
+            actions?:
+              | {
+                  label: string;
+                  link: string;
+                  icon?: ('map-pin' | 'phone' | 'clock') | null;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'hero';
@@ -230,6 +242,48 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  layout: (
+    | {
+        heading?: string | null;
+        showLogo?: boolean | null;
+        subheading?: string | null;
+        backgroundImage?: (number | null) | Media;
+        backgroundVideo?: (number | null) | Media;
+        actions?:
+          | {
+              label: string;
+              link: string;
+              icon?: ('map-pin' | 'phone' | 'clock') | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'hero';
+      }
+    | {
+        heading?: string | null;
+        description?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'services';
+      }
+  )[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -263,6 +317,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'services';
         value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -362,8 +420,18 @@ export interface ServicesSelect<T extends boolean = true> {
           | T
           | {
               heading?: T;
+              showLogo?: T;
               subheading?: T;
               backgroundImage?: T;
+              backgroundVideo?: T;
+              actions?:
+                | T
+                | {
+                    label?: T;
+                    link?: T;
+                    icon?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -400,6 +468,48 @@ export interface ServicesSelect<T extends boolean = true> {
               description?: T;
               buttonText?: T;
               buttonLink?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              showLogo?: T;
+              subheading?: T;
+              backgroundImage?: T;
+              backgroundVideo?: T;
+              actions?:
+                | T
+                | {
+                    label?: T;
+                    link?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        services?:
+          | T
+          | {
+              heading?: T;
+              description?: T;
               id?: T;
               blockName?: T;
             };

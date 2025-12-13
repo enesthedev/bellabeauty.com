@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 import {
   type SupportedLocale,
@@ -7,7 +7,7 @@ import {
   isAdminPath,
   toInternalPath,
   toLocalizedPath,
-} from './lib/i18n-routes'
+} from './i18n/routes'
 
 const PAYLOAD_LOCALE_COOKIE = 'payload-lng'
 
@@ -18,7 +18,9 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const cookieLocale = request.cookies.get(PAYLOAD_LOCALE_COOKIE)?.value as SupportedLocale | undefined
+  const cookieLocale = request.cookies.get(PAYLOAD_LOCALE_COOKIE)?.value as
+    | SupportedLocale
+    | undefined
   const pathLocale = detectLocaleFromPath(pathname)
 
   if (pathLocale === 'tr') {
@@ -65,4 +67,3 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ['/(admin|yonetim)/:path*'],
 }
-

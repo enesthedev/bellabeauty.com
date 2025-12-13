@@ -1,42 +1,55 @@
-import type { Service } from '@/payload-types'
-
 import { CTABlock } from './cta-block'
 import { FeaturesBlock } from './features-block'
 import { GalleryBlock } from './gallery-block'
 import { HeroBlock } from './hero-block'
+import { ServicesBlock } from './services-block'
 
-type ContentBlocks = NonNullable<Service['content']>
+interface Block {
+  blockType: string
+  [key: string]: any
+}
 
 interface RenderBlocksProps {
-  blocks: ContentBlocks | null | undefined
+  blocks: Block[] | null | undefined
 }
 
 export function RenderBlocks({ blocks }: RenderBlocksProps) {
   if (!blocks || blocks.length === 0) return null
 
   return (
-    <div className="space-y-8">
-      {blocks.map((block) => {
+    <div className="space-y-0">
+      {blocks.map((block, index) => {
         switch (block.blockType) {
           case 'hero':
             return (
               <HeroBlock
-                key={block.id}
+                key={block.id || index}
                 heading={block.heading}
-                subheading={block.subheading ?? undefined}
-                backgroundImage={block.backgroundImage ?? undefined}
+                subheading={block.subheading}
+                backgroundImage={block.backgroundImage}
+                backgroundVideo={block.backgroundVideo}
+                showLogo={block.showLogo}
+                actions={block.actions}
+              />
+            )
+          case 'services':
+            return (
+              <ServicesBlock
+                key={block.id || index}
+                heading={block.heading}
+                description={block.description}
               />
             )
           case 'gallery':
-            return <GalleryBlock key={block.id} images={block.images ?? undefined} />
+            return <GalleryBlock key={block.id || index} images={block.images} />
           case 'features':
-            return <FeaturesBlock key={block.id} features={block.features ?? undefined} />
+            return <FeaturesBlock key={block.id || index} features={block.features} />
           case 'cta':
             return (
               <CTABlock
-                key={block.id}
+                key={block.id || index}
                 heading={block.heading}
-                description={block.description ?? undefined}
+                description={block.description}
                 buttonText={block.buttonText}
                 buttonLink={block.buttonLink}
               />
@@ -48,4 +61,3 @@ export function RenderBlocks({ blocks }: RenderBlocksProps) {
     </div>
   )
 }
-
