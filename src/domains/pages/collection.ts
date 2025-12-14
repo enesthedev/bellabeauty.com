@@ -33,6 +33,10 @@ export const PagesCollection: CollectionConfig = {
       type: 'blocks',
       required: true,
       label: { en: 'Layout', tr: 'Sayfa Düzeni' },
+      labels: {
+        singular: { en: 'Layout', tr: 'Sayfa Düzeni' },
+        plural: { en: 'Layouts', tr: 'Sayfa Düzenleri' },
+      },
       blocks: [hero, servicesCarousel],
     },
   ],

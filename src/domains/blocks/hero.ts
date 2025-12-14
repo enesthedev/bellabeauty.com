@@ -40,6 +40,10 @@ export const hero: Block = {
       name: 'actions',
       type: 'array',
       label: { en: 'Action Buttons', tr: 'Aksiyon Butonları' },
+      labels: {
+        singular: { en: 'Action', tr: 'Aksiyon' },
+        plural: { en: 'Actions', tr: 'Aksiyonlar' },
+      },
       fields: [
         {
           name: 'label',

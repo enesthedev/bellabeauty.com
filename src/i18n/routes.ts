@@ -12,6 +12,7 @@ export const routeTranslations: Record<SupportedLocale, Record<string, string>> 
     login: 'giris-yap',
     account: 'hesabim',
     createFirstUser: 'ilk-kullanici-olustur',
+    pages: 'sayfalar',
   },
   en: {
     admin: 'admin',
@@ -24,6 +25,7 @@ export const routeTranslations: Record<SupportedLocale, Record<string, string>> 
     login: 'login',
     account: 'account',
     createFirstUser: 'create-first-user',
+    pages: 'pages',
   },
 }
 
