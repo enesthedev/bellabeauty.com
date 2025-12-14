@@ -1,10 +1,6 @@
 import { slugField, type CollectionConfig } from 'payload'
 
 import { turkishToSlug } from '@/utils'
-import { cta } from '../blocks/cta'
-import { features } from '../blocks/features'
-import { gallery } from '../blocks/gallery'
-import { hero } from '../blocks/hero'
 
 export const ServicesCollection: CollectionConfig = {
   slug: 'services',
@@ -14,6 +10,106 @@ export const ServicesCollection: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, req, operation }) => {
+        if (!doc.slug) return doc
+
+        const pageSlug = `hizmetler/${doc.slug}`
+
+        const { docs: existingPages } = await req.payload.find({
+          collection: 'pages',
+          where: {
+            slug: { equals: pageSlug },
+          },
+          limit: 1,
+        })
+
+        if (operation === 'create' && existingPages.length === 0) {
+          await req.payload.create({
+            collection: 'pages',
+            data: {
+              title: doc.name,
+              slug: pageSlug,
+              layout: [
+                {
+                  blockType: 'service-header',
+                  service: doc.id,
+                },
+                {
+                  blockType: 'rich-text',
+                  content: {
+                    root: {
+                      type: 'root',
+                      children: [
+                        {
+                          type: 'paragraph',
+                          children: [
+                            {
+                              type: 'text',
+                              text: doc.description || 'Hizmet açıklaması buraya gelecek.',
+                            },
+                          ],
+                        },
+                      ],
+                      direction: 'ltr',
+                      format: '',
+                      indent: 0,
+                      version: 1,
+                    },
+                  },
+                },
+                {
+                  blockType: 'features',
+                  features: [],
+                },
+              ],
+            },
+          })
+        } else if (operation === 'update' && existingPages.length > 0) {
+          const existingPage = existingPages[0]
+          const oldSlug = existingPage.slug
+
+          if (oldSlug !== pageSlug) {
+            await req.payload.update({
+              collection: 'pages',
+              id: existingPage.id,
+              data: {
+                title: doc.name,
+                slug: pageSlug,
+              },
+            })
+          }
+        }
+
+        return doc
+      },
+    ],
+    afterDelete: [
+      async ({ doc, req }) => {
+        if (!doc.slug) return doc
+
+        const pageSlug = `hizmetler/${doc.slug}`
+
+        const { docs: existingPages } = await req.payload.find({
+          collection: 'pages',
+          where: {
+            slug: { equals: pageSlug },
+          },
+          limit: 1,
+        })
+
+        if (existingPages.length > 0) {
+          await req.payload.delete({
+            collection: 'pages',
+            id: existingPages[0].id,
+          })
+        }
+
+        return doc
+      },
+    ],
   },
   fields: [
     {
@@ -49,16 +145,6 @@ export const ServicesCollection: CollectionConfig = {
         position: 'sidebar',
         description: { en: 'Duration in minutes', tr: 'Dakika cinsinden süre' },
       },
-    },
-    {
-      name: 'content',
-      type: 'blocks',
-      label: { en: 'Content', tr: 'İçerik' },
-      labels: {
-        singular: { en: 'Content', tr: 'İçerik' },
-        plural: { en: 'Contents', tr: 'İçerikler' },
-      },
-      blocks: [hero, gallery, features, cta],
     },
   ],
 }

@@ -42,18 +42,24 @@ export function ServicesCarouselClient({
   if (services.length === 0) return null
 
   return (
-    <div className="relative flex flex-col justify-center overflow-hidden py-20">
+    <div className="relative bg-black flex flex-col justify-start overflow-hidden py-12">
       <div className="relative">
-        <header className="mx-auto mb-12 px-6 text-left md:mb-16 lg:mb-20">
-          {heading && (
-            <Animated>
-              <h2 className="font-serif text-4xl font-light tracking-tight text-black md:text-5xl lg:text-6xl">
-                {heading}
-              </h2>
+        <div className="flex flex-col mb-12 gap-4">
+          <div className="px-6 text-left">
+            {heading && (
+              <Animated>
+                <h2 className="text-4xl uppercase font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl">
+                  {heading}
+                </h2>
+              </Animated>
+            )}
+          </div>
+          {description && (
+            <Animated className="delay-200">
+              <p className="text-sm md:text-base text-white/80 px-6 lg:text-lg">{description}</p>
             </Animated>
           )}
-        </header>
-
+        </div>
         <Animated className="delay-200">
           <Carousel
             setApi={setApi}
@@ -112,7 +118,7 @@ export function ServicesCarouselClient({
                         </div>
 
                         <div className="absolute right-6 top-6 md:right-8 md:top-8">
-                          <span className="font-mono text-sm text-white/30">
+                          <span className="font-mono text-sm text-black/30">
                             {String(index + 1).padStart(2, '0')}
                           </span>
                         </div>
@@ -129,10 +135,10 @@ export function ServicesCarouselClient({
           <div className="mt-10 flex items-center justify-center gap-8 md:mt-14">
             <button
               onClick={scrollPrev}
-              className="group flex size-12 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
+              className="group flex size-12 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
               aria-label="Önceki"
             >
-              <ChevronLeft className="size-5 text-white transition-colors group-hover:text-stone-900" />
+              <ChevronLeft className="size-5 text-amber-300 transition-colors group-hover:text-stone-900" />
             </button>
 
             <div className="flex items-center gap-2">
@@ -151,10 +157,10 @@ export function ServicesCarouselClient({
 
             <button
               onClick={scrollNext}
-              className="group flex size-12 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
+              className="group flex size-12 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
               aria-label="Sonraki"
             >
-              <ChevronRight className="size-5 text-white transition-colors group-hover:text-stone-900" />
+              <ChevronRight className="size-5 text-amber-300 transition-colors group-hover:text-stone-900" />
             </button>
           </div>
         </Animated>

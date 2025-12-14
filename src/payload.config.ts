@@ -13,6 +13,7 @@ import { MediaCollection } from './domains/media'
 import { PagesCollection } from './domains/pages'
 import { ServicesCollection } from './domains/services'
 import { UsersCollection } from './domains/users'
+import { seed } from './seed'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -58,7 +59,7 @@ export default buildConfig({
     fallbackLanguage: 'en',
   },
   onInit: async (payload) => {
-    //await seed(payload)
+    await seed(payload)
   },
 })
 

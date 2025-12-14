@@ -28,6 +28,12 @@ const SEED_SERVICES = [
       alt: 'Profesyonel Cilt Bakımı',
       mimeType: 'image/jpeg',
     },
+    richTextParagraphs: [
+      'Belle Güzellik Merkezi olarak, cildinizin benzersiz ihtiyaçlarını anlıyor ve size özel bakım protokolleri sunuyoruz. Her cilt tipi farklıdır ve bu nedenle her müşterimize kişiselleştirilmiş bir yaklaşım sunmaktayız.',
+      'Profesyonel cilt bakımı seanslarımız, en son teknoloji cihazlar ve dermatolojik olarak onaylı ürünlerle gerçekleştirilmektedir. Kullandığımız tüm ürünler, uluslararası kalite standartlarına uygun ve cilt dostu formüllerden oluşmaktadır.',
+      'Uzman estetisyenlerimiz, cildinizi derinlemesine analiz ederek kişiselleştirilmiş bir bakım planı oluşturur. Bu plan; temizlik, peeling, maske uygulaması, serum tedavisi ve nemlendirme aşamalarını içerir.',
+      'Düzenli cilt bakımı ile gözenekleriniz küçülür, cilt tonunuz eşitlenir ve cildiniz daha genç, daha canlı bir görünüm kazanır. İlk seanstan itibaren farkı hissedeceksiniz.',
+    ],
     features: [
       {
         icon: 'Search',
@@ -65,6 +71,12 @@ const SEED_SERVICES = [
       alt: 'Kalıcı Oje & Nail Art',
       mimeType: 'image/jpeg',
     },
+    richTextParagraphs: [
+      'Tırnaklarınız, stilinizin ve kişiliğinizin bir yansımasıdır. Belle Güzellik Merkezi olarak, tırnak bakımı ve nail art konusunda uzmanlaşmış ekibimizle size muhteşem tırnaklar sunuyoruz.',
+      'Kalıcı oje uygulamamız, özel UV/LED teknolojisi ile sertleştirilen, 2-3 hafta boyunca ilk günkü parlaklığını ve dayanıklılığını koruyan profesyonel bir işlemdir. Çizilme, soyulma veya solma olmadan mükemmel görünümünüzü koruyun.',
+      'Nail art hizmetimizde sınır hayal gücünüzdür. French, ombre, geometrik desenler, çiçek motifleri, taş süslemeleri ve daha fazlası... Özel günleriniz için veya günlük şıklığınız için size özel tasarımlar oluşturuyoruz.',
+      'Tüm uygulamalarımızda tırnak sağlığını ön planda tutuyoruz. Kullandığımız ürünler, tırnaklarınıza zarar vermeden güçlendiren ve koruyan özel formüllerden oluşmaktadır.',
+    ],
     features: [
       {
         icon: 'Clock',
@@ -95,6 +107,12 @@ const SEED_SERVICES = [
       alt: 'Kaş & Kirpik Tasarımı',
       mimeType: 'image/jpeg',
     },
+    richTextParagraphs: [
+      'Bakışlarınız, yüzünüzün en dikkat çekici ve ifade dolu noktasıdır. Doğru şekillendirilmiş kaşlar ve bakımlı kirpikler, yüz hatlarınızı belirginleştirir ve doğal güzelliğinizi ön plana çıkarır.',
+      'Kaş tasarımı hizmetimizde, yüz şeklinizi ve kemik yapınızı analiz ederek size en uygun kaş formunu belirliyoruz. İplik, cımbız veya ağda teknikleriyle hassas şekillendirme yapıyor, kaşlarınıza doğal ve çerçevelenmiş bir görünüm kazandırıyoruz.',
+      'Kirpik lifting işlemi, kendi doğal kirpiklerinizi kökten uca kıvırarak daha uzun, daha dolgun ve daha kıvrık görünmesini sağlar. Maskara veya kirpik kıvırıcıya ihtiyaç duymadan, makyajsız bile etkileyici bakışlara sahip olabilirsiniz.',
+      'İşlem tamamen ağrısız olup, sonuçlar 6-8 hafta boyunca kalıcıdır. Doğal kirpiklerinize zarar vermeden, günlük bakım rutininizi kolaylaştırır.',
+    ],
     features: [
       {
         icon: 'Scissors',
@@ -108,9 +126,46 @@ const SEED_SERVICES = [
         description:
           'Kendi kirpiklerinizi kökten uca kıvırarak daha uzun, daha dolgun ve daha kıvrık görünmesini sağlayan bakım işlemidir.',
       },
+      {
+        icon: 'Sparkles',
+        title: 'Kirpik Boyama',
+        description:
+          'Kirpiklerinizi boyayarak makyajsız bile belirgin ve etkileyici bakışlar elde edin.',
+      },
+      {
+        icon: 'Heart',
+        title: 'Doğal Görünüm',
+        description:
+          'Tüm işlemlerimizde doğallığı koruyarak yüz hatlarınızla uyumlu sonuçlar elde ediyoruz.',
+      },
     ],
   },
 ]
+
+function createRichTextContent(paragraphs: string[]) {
+  return {
+    root: {
+      type: 'root',
+      children: paragraphs.map((text) => ({
+        type: 'paragraph',
+        children: [
+          {
+            type: 'text',
+            text,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      })),
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      version: 1,
+    },
+  }
+}
 
 async function getOrCreateMedia(
   payload: Payload,
@@ -178,26 +233,54 @@ async function seedServices(payload: Payload): Promise<void> {
     }
 
     const coverImageId = await getOrCreateMedia(payload, serviceData.image)
+    const serviceSlug = turkishToSlug(serviceData.name)
 
-    await payload.create({
+    const service = await payload.create({
       collection: 'services',
       draft: false,
       data: {
         name: serviceData.name,
-        slug: turkishToSlug(serviceData.name),
+        slug: serviceSlug,
         description: serviceData.description,
         duration: serviceData.duration,
         coverImage: coverImageId ?? undefined,
-        content: [
-          {
-            blockType: 'features',
-            features: serviceData.features,
-          },
-        ],
       },
     })
 
     payload.logger.info(`Created service: ${serviceData.name}`)
+
+    const pageSlug = `hizmetler/${serviceSlug}`
+    const { docs: existingPages } = await payload.find({
+      collection: 'pages',
+      where: {
+        slug: { equals: pageSlug },
+      },
+      limit: 1,
+    })
+
+    if (existingPages.length > 0) {
+      await payload.update({
+        collection: 'pages',
+        id: existingPages[0].id,
+        data: {
+          layout: [
+            {
+              blockType: 'service-header',
+              service: service.id,
+            },
+            {
+              blockType: 'rich-text',
+              content: createRichTextContent(serviceData.richTextParagraphs),
+            },
+            {
+              blockType: 'features',
+              features: serviceData.features,
+            },
+          ],
+        },
+      })
+      payload.logger.info(`Updated service page with content: ${serviceData.name}`)
+    }
   }
 
   payload.logger.info('Services seeded successfully')

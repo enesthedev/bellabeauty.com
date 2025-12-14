@@ -65,7 +65,6 @@ export function Section({
         className={cn(
           'w-full shrink-0 transition-opacity duration-500',
           enableFullscreen && 'flex h-screen snap-start snap-always *:w-full',
-          isVisible ? 'opacity-100' : 'opacity-50',
           className,
         )}
       >

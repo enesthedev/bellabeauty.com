@@ -179,64 +179,6 @@ export interface Service {
    * Duration in minutes
    */
   duration?: number | null;
-  content?:
-    | (
-        | {
-            heading?: string | null;
-            showLogo?: boolean | null;
-            subheading?: string | null;
-            backgroundImage?: (number | null) | Media;
-            backgroundVideo?: (number | null) | Media;
-            actions?:
-              | {
-                  label: string;
-                  link: string;
-                  icon?: ('map-pin' | 'phone' | 'clock') | null;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'hero';
-          }
-        | {
-            images?:
-              | {
-                  image: number | Media;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'gallery';
-          }
-        | {
-            features?:
-              | {
-                  /**
-                   * Lucide ikon adı (örn: Shield, Zap, Clock)
-                   */
-                  icon?: string | null;
-                  title: string;
-                  description?: string | null;
-                  id?: string | null;
-                }[]
-              | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'features';
-          }
-        | {
-            heading: string;
-            description?: string | null;
-            buttonText: string;
-            buttonLink: string;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'cta';
-          }
-      )[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -281,6 +223,68 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'services-carousel';
+      }
+    | {
+        service: number | Service;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'service-header';
+      }
+    | {
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'rich-text';
+      }
+    | {
+        features?:
+          | {
+              /**
+               * Lucide ikon adı (örn: Shield, Zap, Clock)
+               */
+              icon?: string | null;
+              title: string;
+              description?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'features';
+      }
+    | {
+        images?:
+          | {
+              image: number | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'gallery';
+      }
+    | {
+        heading: string;
+        description?: string | null;
+        buttonText: string;
+        buttonLink: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'cta';
       }
   )[];
   updatedAt: string;
@@ -417,65 +421,6 @@ export interface ServicesSelect<T extends boolean = true> {
   coverImage?: T;
   description?: T;
   duration?: T;
-  content?:
-    | T
-    | {
-        hero?:
-          | T
-          | {
-              heading?: T;
-              showLogo?: T;
-              subheading?: T;
-              backgroundImage?: T;
-              backgroundVideo?: T;
-              actions?:
-                | T
-                | {
-                    label?: T;
-                    link?: T;
-                    icon?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        gallery?:
-          | T
-          | {
-              images?:
-                | T
-                | {
-                    image?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        features?:
-          | T
-          | {
-              features?:
-                | T
-                | {
-                    icon?: T;
-                    title?: T;
-                    description?: T;
-                    id?: T;
-                  };
-              id?: T;
-              blockName?: T;
-            };
-        cta?:
-          | T
-          | {
-              heading?: T;
-              description?: T;
-              buttonText?: T;
-              buttonLink?: T;
-              id?: T;
-              blockName?: T;
-            };
-      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -515,6 +460,56 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               heading?: T;
               description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'service-header'?:
+          | T
+          | {
+              service?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'rich-text'?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        features?:
+          | T
+          | {
+              features?:
+                | T
+                | {
+                    icon?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        gallery?:
+          | T
+          | {
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        cta?:
+          | T
+          | {
+              heading?: T;
+              description?: T;
+              buttonText?: T;
+              buttonLink?: T;
               id?: T;
               blockName?: T;
             };

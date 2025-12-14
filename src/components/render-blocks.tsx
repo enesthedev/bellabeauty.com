@@ -2,6 +2,8 @@ import { CTABlock } from '@/domains/blocks/cta.client'
 import { FeaturesBlock } from '@/domains/blocks/features.client'
 import { GalleryBlock } from '@/domains/blocks/gallery.client'
 import { HeroBlock } from '@/domains/blocks/hero.client'
+import { RichTextBlock } from '@/domains/blocks/rich-text.client'
+import { ServiceHeaderBlock } from '@/domains/services/blocks/service-header.client'
 import { ServicesCarouselBlock } from '@/domains/services/blocks/services-carousel.server'
 
 import { Section } from './section'
@@ -19,6 +21,8 @@ interface RenderBlocksProps {
 const blockAriaLabels: Record<string, string> = {
   hero: 'Ana Bölüm',
   'services-carousel': 'Hizmetler',
+  'service-header': 'Hizmet Başlığı',
+  'rich-text': 'İçerik',
   gallery: 'Galeri',
   features: 'Özellikler',
   cta: 'Harekete Geçirici',
@@ -42,6 +46,10 @@ export function RenderBlocks({ blocks, enableFullscreenSections = false }: Rende
         )
       case 'services-carousel':
         return <ServicesCarouselBlock heading={block.heading} description={block.description} />
+      case 'service-header':
+        return <ServiceHeaderBlock service={block.service} />
+      case 'rich-text':
+        return <RichTextBlock content={block.content} />
       case 'gallery':
         return <GalleryBlock images={block.images} />
       case 'features':

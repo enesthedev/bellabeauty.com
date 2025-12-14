@@ -14,8 +14,8 @@ export function FeaturesBlock({ features }: FeaturesBlockProps) {
   if (!features || features.length === 0) return null
 
   return (
-    <div className="flex flex-col justify-center py-12">
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto max-w-4xl flex flex-col justify-center py-6">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
         {features.map((feature, index) => {
           const IconComponent = feature.icon
             ? (LucideIcons[feature.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon)
