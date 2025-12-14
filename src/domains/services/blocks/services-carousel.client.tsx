@@ -42,9 +42,9 @@ export function ServicesCarouselClient({
   if (services.length === 0) return null
 
   return (
-    <div className="relative bg-black flex flex-col justify-start overflow-hidden py-12">
+    <div className="relative bg-black flex flex-col justify-around overflow-hidden py-6 md:py-12">
       <div className="relative">
-        <div className="flex flex-col mb-12 gap-4">
+        <div className="flex flex-col mb-8 md:mb-12 gap-6">
           <div className="px-6 text-left">
             {heading && (
               <Animated>
@@ -56,7 +56,9 @@ export function ServicesCarouselClient({
           </div>
           {description && (
             <Animated className="delay-200">
-              <p className="text-sm md:text-base text-white/80 px-6 lg:text-lg">{description}</p>
+              <p className="text-xs md:text-sm max-w-4xl text-justify text-white/80 px-6 lg:text-base 2xl:text-lg">
+                {description}
+              </p>
             </Animated>
           )}
         </div>
@@ -75,12 +77,15 @@ export function ServicesCarouselClient({
                 const imageUrl = coverImage?.url
 
                 return (
-                  <CarouselItem key={service.id} className="pl-4 md:basis-1/2 md:pl-6 lg:basis-1/5">
+                  <CarouselItem
+                    key={service.id}
+                    className="pl-4 md:basis-1/2 md:pl-6 lg:basis-1/3 xl:basis-1/5 2xl:basis-1/4"
+                  >
                     <Link
                       href={`/hizmetler/${service.slug}`}
                       className="group relative block h-full"
                     >
-                      <div className="relative aspect-3/4 overflow-hidden rounded-2xl bg-stone-900">
+                      <div className="relative aspect-square lg:aspect-3/4 overflow-hidden rounded-2xl bg-stone-900">
                         {imageUrl ? (
                           <Image
                             src={imageUrl}
@@ -132,10 +137,10 @@ export function ServicesCarouselClient({
         </Animated>
 
         <Animated className="delay-300">
-          <div className="mt-10 flex items-center justify-center gap-8 md:mt-14">
+          <div className="mt-8 flex items-center justify-start px-6 gap-4 md:gap-8 md:mt-14">
             <button
               onClick={scrollPrev}
-              className="group flex size-12 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
+              className="group flex size-10 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
               aria-label="Önceki"
             >
               <ChevronLeft className="size-5 text-amber-300 transition-colors group-hover:text-stone-900" />
@@ -157,7 +162,7 @@ export function ServicesCarouselClient({
 
             <button
               onClick={scrollNext}
-              className="group flex size-12 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
+              className="group flex size-10 items-center justify-center rounded-full border border-amber-300/40 bg-amber-300/20 backdrop-blur-sm transition-all hover:border-amber-400/50 hover:bg-amber-400"
               aria-label="Sonraki"
             >
               <ChevronRight className="size-5 text-amber-300 transition-colors group-hover:text-stone-900" />
