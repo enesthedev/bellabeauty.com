@@ -1,10 +1,10 @@
 import type { Block } from 'payload'
 
-export const services: Block = {
-  slug: 'services',
+export const servicesCarousel: Block = {
+  slug: 'services-carousel',
   labels: {
-    singular: { en: 'Services Block', tr: 'Hizmetler Bloğu' },
-    plural: { en: 'Services Blocks', tr: 'Hizmetler Blokları' },
+    singular: { en: 'Services Carousel', tr: 'Hizmet' },
+    plural: { en: 'Services Carousels', tr: 'Hizmetler' },
   },
   fields: [
     {

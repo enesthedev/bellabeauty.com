@@ -276,7 +276,7 @@ export interface Page {
         description?: string | null;
         id?: string | null;
         blockName?: string | null;
-        blockType: 'services';
+        blockType: 'services-carousel';
       }
   )[];
   updatedAt: string;
@@ -505,7 +505,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        services?:
+        'services-carousel'?:
           | T
           | {
               heading?: T;

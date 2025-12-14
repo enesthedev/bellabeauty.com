@@ -42,4 +42,3 @@ export function FeaturesBlock({ features }: FeaturesBlockProps) {
     </section>
   )
 }
-

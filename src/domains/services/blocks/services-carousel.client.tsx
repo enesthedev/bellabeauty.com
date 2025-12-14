@@ -12,12 +12,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 
-interface ServicesBlockProps {
+interface ServicesCarouselBlockProps {
   heading?: string | null
   description?: string | null
 }
 
-export async function ServicesBlock({ heading, description }: ServicesBlockProps) {
+export async function ServicesCarouselBlock({ heading, description }: ServicesCarouselBlockProps) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 

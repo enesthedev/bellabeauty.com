@@ -1,8 +1,8 @@
-import { CTABlock } from './cta-block'
-import { FeaturesBlock } from './features-block'
-import { GalleryBlock } from './gallery-block'
-import { HeroBlock } from './hero-block'
-import { ServicesBlock } from './services-block'
+import { CTABlock } from '@/domains/blocks/cta.client'
+import { FeaturesBlock } from '@/domains/blocks/features.client'
+import { GalleryBlock } from '@/domains/blocks/gallery.client'
+import { HeroBlock } from '@/domains/blocks/hero.client'
+import { ServicesCarouselBlock } from '@/domains/services/blocks/services-carousel.client'
 
 interface Block {
   blockType: string
@@ -32,9 +32,9 @@ export function RenderBlocks({ blocks }: RenderBlocksProps) {
                 actions={block.actions}
               />
             )
-          case 'services':
+          case 'services-carousel':
             return (
-              <ServicesBlock
+              <ServicesCarouselBlock
                 key={block.id || index}
                 heading={block.heading}
                 description={block.description}

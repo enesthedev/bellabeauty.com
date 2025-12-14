@@ -6,7 +6,7 @@ import { features } from '../blocks/features'
 import { gallery } from '../blocks/gallery'
 import { hero } from '../blocks/hero'
 
-export const Services: CollectionConfig = {
+export const ServicesCollection: CollectionConfig = {
   slug: 'services',
   labels: {
     singular: { en: 'Service', tr: 'Hizmet' },

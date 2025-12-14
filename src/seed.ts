@@ -34,7 +34,7 @@ async function getOrCreateMedia(
     return existingMedia[0].id
   }
 
-  const assetsDir = path.resolve(process.cwd(), 'src/seed/assets')
+  const assetsDir = path.resolve(process.cwd(), 'src/assets')
   const filePath = path.join(assetsDir, mediaConfig.filename)
 
   if (!fs.existsSync(filePath)) {
@@ -61,12 +61,12 @@ async function getOrCreateMedia(
   return media.id
 }
 
-export async function seedHomePage(payload: Payload): Promise<void> {
+export async function seed(payload: Payload): Promise<void> {
   const { docs: existingPages } = await payload.find({
     collection: 'pages',
     where: {
       slug: {
-        equals: 'home',
+        equals: 'anasayfa',
       },
     },
     limit: 1,
@@ -86,7 +86,7 @@ export async function seedHomePage(payload: Payload): Promise<void> {
     collection: 'pages',
     data: {
       title: 'Anasayfa',
-      slug: 'ana-sayfa',
+      slug: 'anasayfa',
       layout: [
         {
           blockType: 'hero',
@@ -107,7 +107,7 @@ export async function seedHomePage(payload: Payload): Promise<void> {
           ],
         },
         {
-          blockType: 'services',
+          blockType: 'services-carousel',
           heading: 'Hizmetlerimiz',
           description: 'Geniş güzellik hizmetleri yelpazemizi keşfedin',
         },

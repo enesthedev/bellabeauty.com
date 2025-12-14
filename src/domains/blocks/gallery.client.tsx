@@ -33,4 +33,3 @@ export function GalleryBlock({ images }: GalleryBlockProps) {
     </section>
   )
 }
-

@@ -1,10 +1,10 @@
 import { slugField, type CollectionConfig } from 'payload'
 
 import { turkishToSlug } from '@/utils'
-import { hero } from '../blocks/hero'
-import { services } from '../blocks/services'
+import { hero } from '../blocks'
+import { servicesCarousel } from '../services/blocks'
 
-export const Pages: CollectionConfig = {
+export const PagesCollection: CollectionConfig = {
   slug: 'pages',
   labels: {
     singular: { en: 'Page', tr: 'Sayfa' },
@@ -33,7 +33,7 @@ export const Pages: CollectionConfig = {
       type: 'blocks',
       required: true,
       label: { en: 'Layout', tr: 'Sayfa Düzeni' },
-      blocks: [hero, services],
+      blocks: [hero, servicesCarousel],
     },
   ],
 }

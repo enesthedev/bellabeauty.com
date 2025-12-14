@@ -1,4 +1,4 @@
-import { RenderBlocks } from '@/components/blocks/render-blocks'
+import { RenderBlocks } from '@/components/render-blocks'
 import config from '@/payload.config'
 import { getPayload } from 'payload'
 
@@ -10,15 +10,15 @@ export default async function HomePage() {
     collection: 'pages',
     where: {
       slug: {
-        equals: 'home',
+        equals: 'anasayfa',
       },
     },
     limit: 1,
   })
 
-  const homePage = pages[0]
+  const page = pages[0]
 
-  if (!homePage) {
+  if (!page) {
     return (
       <div className="flex h-screen flex-col items-center justify-center space-y-4 text-center p-4">
         <h1 className="text-2xl font-bold">Hoş Geldiniz</h1>
@@ -32,7 +32,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <RenderBlocks blocks={homePage.layout} />
+      <RenderBlocks blocks={page.layout} />
     </main>
   )
 }

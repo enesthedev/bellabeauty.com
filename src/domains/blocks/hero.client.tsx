@@ -1,15 +1,15 @@
 import { ActionButton } from '@/components/action-button'
 import { Animated } from '@/components/animated'
+import Logo from '@/components/logo'
 import { VideoBackground } from '@/components/video-background'
 import type { Media } from '@/payload-types'
 import { Clock, MapPin, Phone } from 'lucide-react'
-import Logo from '../logo'
 
 interface HeroBlockProps {
   heading?: string | null
   subheading?: string | null
-  backgroundImage?: Media | string | null
-  backgroundVideo?: Media | string | null
+  backgroundImage?: Media | null
+  backgroundVideo?: Media | null
   showLogo?: boolean | null
   actions?:
     | {
@@ -29,9 +29,6 @@ export function HeroBlock({
   showLogo,
   actions,
 }: HeroBlockProps) {
-  const imageUrl = typeof backgroundImage === 'object' ? backgroundImage?.url : undefined
-  const videoUrl = typeof backgroundVideo === 'object' ? backgroundVideo?.url : undefined
-
   const getIcon = (iconName?: string | null) => {
     switch (iconName) {
       case 'map-pin':
@@ -47,7 +44,7 @@ export function HeroBlock({
 
   return (
     <section id="hero" className="relative h-screen min-h-[600px] w-full overflow-hidden bg-white">
-      <VideoBackground videoUrl={videoUrl} imageUrl={imageUrl} />
+      <VideoBackground video={backgroundVideo} thumbnail={backgroundImage} />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-12 md:w-1/2 md:items-start md:justify-center md:px-12 md:pb-0 lg:w-2/5 lg:px-16">
         {showLogo && (

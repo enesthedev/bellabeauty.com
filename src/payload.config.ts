@@ -9,11 +9,12 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import { GetPlatformProxyOptions } from 'wrangler'
 
-import { Media } from './collections/media'
-import { Pages } from './collections/pages'
-import { Services } from './collections/services'
-import { Users } from './collections/users'
-import { seedHomePage } from './seed'
+import { MediaCollection } from './domains/media'
+import { PagesCollection } from './domains/pages'
+import { ServicesCollection } from './domains/services'
+import { UsersCollection } from './domains/users'
+
+import { seed } from './seed'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,12 +29,12 @@ const cloudflare =
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
+    user: UsersCollection.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Services, Pages],
+  collections: [UsersCollection, MediaCollection, ServicesCollection, PagesCollection],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -53,7 +54,7 @@ export default buildConfig({
     fallbackLanguage: 'en',
   },
   onInit: async (payload) => {
-    await seedHomePage(payload)
+    await seed(payload)
   },
 })
 
