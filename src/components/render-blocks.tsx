@@ -4,6 +4,7 @@ import { GalleryBlock } from '@/domains/blocks/gallery.client'
 import { RichTextBlock } from '@/domains/blocks/rich-text.client'
 import { ServiceHeaderBlock } from '@/domains/services/blocks/service-header.client'
 import { ServicesCarouselBlock } from '@/domains/services/blocks/services-carousel.server'
+import { ServicesGridBlock } from '@/domains/services/blocks/services-grid.server'
 
 import { VideoHeroBlock } from '@/domains/blocks/video-hero.client'
 import { Section } from './section'
@@ -20,6 +21,7 @@ interface RenderBlocksProps {
 
 const blockAriaLabels: Record<string, string> = {
   'services-carousel': 'Hizmetler',
+  'services-grid': 'Hizmetler',
   'service-header': 'Hizmet Başlığı',
   'video-hero': 'Videolu Kahraman Bölümü',
   'rich-text': 'İçerik',
@@ -42,6 +44,8 @@ export function RenderBlocks({ blocks, enableFullscreenSections = false }: Rende
         )
       case 'services-carousel':
         return <ServicesCarouselBlock heading={block.heading} description={block.description} />
+      case 'services-grid':
+        return <ServicesGridBlock heading={block.heading} description={block.description} />
       case 'service-header':
         return <ServiceHeaderBlock service={block.service} />
       case 'rich-text':

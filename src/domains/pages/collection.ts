@@ -2,7 +2,7 @@ import { slugField, type CollectionConfig } from 'payload'
 
 import { turkishToSlug } from '@/utils'
 import { cta, features, gallery, richText, videoHero } from '../blocks'
-import { serviceHeader, servicesCarousel } from '../services/blocks'
+import { serviceHeader, servicesCarousel, servicesGrid } from '../services/blocks'
 
 export const PagesCollection: CollectionConfig = {
   slug: 'pages',
@@ -49,7 +49,7 @@ export const PagesCollection: CollectionConfig = {
         singular: { en: 'Layout', tr: 'Sayfa Düzeni' },
         plural: { en: 'Layouts', tr: 'Sayfa Düzenleri' },
       },
-      blocks: [videoHero, servicesCarousel, serviceHeader, richText, features, gallery, cta],
+      blocks: [videoHero, servicesCarousel, servicesGrid, serviceHeader, richText, features, gallery, cta],
     },
   ],
 }

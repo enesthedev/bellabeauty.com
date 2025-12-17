@@ -14,7 +14,7 @@ export async function ServicesCarouselBlock({ heading, description }: ServicesCa
   const { docs: services } = await payload.find({
     collection: 'services',
     locale: 'tr',
-    limit: 100,
+    limit: 5,
     depth: 1,
   })
 

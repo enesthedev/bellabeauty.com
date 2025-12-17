@@ -222,6 +222,13 @@ export interface Page {
         blockType: 'services-carousel';
       }
     | {
+        heading?: string | null;
+        description?: string | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'services-grid';
+      }
+    | {
         service: number | Service;
         id?: string | null;
         blockName?: string | null;
@@ -458,6 +465,14 @@ export interface PagesSelect<T extends boolean = true> {
               blockName?: T;
             };
         'services-carousel'?:
+          | T
+          | {
+              heading?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        'services-grid'?:
           | T
           | {
               heading?: T;

@@ -1,3 +1,5 @@
 export * from './service-header'
 export * from './services-carousel'
 export * from './services-carousel.server'
+export * from './services-grid'
+export * from './services-grid.server'
