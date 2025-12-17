@@ -13,11 +13,10 @@ export async function ServicesGridBlock({ heading, description }: ServicesGridBl
 
   const { docs: services } = await payload.find({
     collection: 'services',
-    locale: 'tr',
+    locale: 'all',
     limit: 100,
     depth: 1,
   })
 
   return <ServicesGridClient heading={heading} description={description} services={services} />
 }
-

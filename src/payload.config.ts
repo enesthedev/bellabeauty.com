@@ -1,7 +1,7 @@
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { r2Storage } from '@payloadcms/storage-r2'
 import { en } from '@payloadcms/translations/languages/en'
 import { tr } from '@payloadcms/translations/languages/tr'
@@ -21,6 +21,7 @@ const dirname = path.dirname(filename)
 
 const isCLI = process.argv.some((value) => value.match(/^(generate|migrate):?/))
 const isProduction = process.env.NODE_ENV === 'production'
+const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build'
 
 const cloudflare =
   isCLI || !isProduction
@@ -70,7 +71,9 @@ export default buildConfig({
     fallbackLanguage: 'en',
   },
   onInit: async (payload) => {
-    await seed(payload)
+    if (!isBuildPhase) {
+      await seed(payload)
+    }
   },
 })
 

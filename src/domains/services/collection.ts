@@ -51,6 +51,7 @@ export const ServicesCollection: CollectionConfig = {
                               text: doc.description || 'Hizmet açıklaması buraya gelecek.',
                             },
                           ],
+                          version: 1,
                         },
                       ],
                       direction: 'ltr',
