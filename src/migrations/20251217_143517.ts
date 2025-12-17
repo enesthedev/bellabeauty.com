@@ -62,26 +62,23 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX \`services_cover_image_idx\` ON \`services\` (\`cover_image_id\`);`)
   await db.run(sql`CREATE INDEX \`services_updated_at_idx\` ON \`services\` (\`updated_at\`);`)
   await db.run(sql`CREATE INDEX \`services_created_at_idx\` ON \`services\` (\`created_at\`);`)
-  await db.run(sql`CREATE TABLE \`pages_blocks_hero_actions\` (
+  await db.run(sql`CREATE TABLE \`pages_blocks_video_hero_actions\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` text NOT NULL,
   	\`id\` text PRIMARY KEY NOT NULL,
   	\`label\` text NOT NULL,
   	\`link\` text NOT NULL,
   	\`icon\` text,
-  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`pages_blocks_hero\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`pages_blocks_video_hero\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`pages_blocks_hero_actions_order_idx\` ON \`pages_blocks_hero_actions\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`pages_blocks_hero_actions_parent_id_idx\` ON \`pages_blocks_hero_actions\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`pages_blocks_hero\` (
+  await db.run(sql`CREATE INDEX \`pages_blocks_video_hero_actions_order_idx\` ON \`pages_blocks_video_hero_actions\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_video_hero_actions_parent_id_idx\` ON \`pages_blocks_video_hero_actions\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE TABLE \`pages_blocks_video_hero\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
   	\`_path\` text NOT NULL,
   	\`id\` text PRIMARY KEY NOT NULL,
-  	\`heading\` text,
-  	\`show_logo\` integer DEFAULT true,
-  	\`subheading\` text,
   	\`background_image_id\` integer,
   	\`background_video_id\` integer,
   	\`block_name\` text,
@@ -90,11 +87,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`pages\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE INDEX \`pages_blocks_hero_order_idx\` ON \`pages_blocks_hero\` (\`_order\`);`)
-  await db.run(sql`CREATE INDEX \`pages_blocks_hero_parent_id_idx\` ON \`pages_blocks_hero\` (\`_parent_id\`);`)
-  await db.run(sql`CREATE INDEX \`pages_blocks_hero_path_idx\` ON \`pages_blocks_hero\` (\`_path\`);`)
-  await db.run(sql`CREATE INDEX \`pages_blocks_hero_background_image_idx\` ON \`pages_blocks_hero\` (\`background_image_id\`);`)
-  await db.run(sql`CREATE INDEX \`pages_blocks_hero_background_video_idx\` ON \`pages_blocks_hero\` (\`background_video_id\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_video_hero_order_idx\` ON \`pages_blocks_video_hero\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_video_hero_parent_id_idx\` ON \`pages_blocks_video_hero\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_video_hero_path_idx\` ON \`pages_blocks_video_hero\` (\`_path\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_video_hero_background_image_idx\` ON \`pages_blocks_video_hero\` (\`background_image_id\`);`)
+  await db.run(sql`CREATE INDEX \`pages_blocks_video_hero_background_video_idx\` ON \`pages_blocks_video_hero\` (\`background_video_id\`);`)
   await db.run(sql`CREATE TABLE \`pages_blocks_services_carousel\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -207,11 +204,16 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`generate_slug\` integer DEFAULT true,
   	\`slug\` text NOT NULL,
   	\`enable_fullscreen_sections\` integer DEFAULT false,
+  	\`meta_title\` text,
+  	\`meta_description\` text,
+  	\`meta_image_id\` integer,
   	\`updated_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
-  	\`created_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL
+  	\`created_at\` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+  	FOREIGN KEY (\`meta_image_id\`) REFERENCES \`media\`(\`id\`) ON UPDATE no action ON DELETE set null
   );
   `)
   await db.run(sql`CREATE UNIQUE INDEX \`pages_slug_idx\` ON \`pages\` (\`slug\`);`)
+  await db.run(sql`CREATE INDEX \`pages_meta_meta_image_idx\` ON \`pages\` (\`meta_image_id\`);`)
   await db.run(sql`CREATE INDEX \`pages_updated_at_idx\` ON \`pages\` (\`updated_at\`);`)
   await db.run(sql`CREATE INDEX \`pages_created_at_idx\` ON \`pages\` (\`created_at\`);`)
   await db.run(sql`CREATE TABLE \`payload_kv\` (
@@ -296,8 +298,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`users\`;`)
   await db.run(sql`DROP TABLE \`media\`;`)
   await db.run(sql`DROP TABLE \`services\`;`)
-  await db.run(sql`DROP TABLE \`pages_blocks_hero_actions\`;`)
-  await db.run(sql`DROP TABLE \`pages_blocks_hero\`;`)
+  await db.run(sql`DROP TABLE \`pages_blocks_video_hero_actions\`;`)
+  await db.run(sql`DROP TABLE \`pages_blocks_video_hero\`;`)
   await db.run(sql`DROP TABLE \`pages_blocks_services_carousel\`;`)
   await db.run(sql`DROP TABLE \`pages_blocks_service_header\`;`)
   await db.run(sql`DROP TABLE \`pages_blocks_rich_text\`;`)

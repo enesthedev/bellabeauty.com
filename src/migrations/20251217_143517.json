@@ -411,8 +411,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "pages_blocks_hero_actions": {
-      "name": "pages_blocks_hero_actions",
+    "pages_blocks_video_hero_actions": {
+      "name": "pages_blocks_video_hero_actions",
       "columns": {
         "_order": {
           "name": "_order",
@@ -458,15 +458,15 @@
         }
       },
       "indexes": {
-        "pages_blocks_hero_actions_order_idx": {
-          "name": "pages_blocks_hero_actions_order_idx",
+        "pages_blocks_video_hero_actions_order_idx": {
+          "name": "pages_blocks_video_hero_actions_order_idx",
           "columns": [
             "_order"
           ],
           "isUnique": false
         },
-        "pages_blocks_hero_actions_parent_id_idx": {
-          "name": "pages_blocks_hero_actions_parent_id_idx",
+        "pages_blocks_video_hero_actions_parent_id_idx": {
+          "name": "pages_blocks_video_hero_actions_parent_id_idx",
           "columns": [
             "_parent_id"
           ],
@@ -474,10 +474,10 @@
         }
       },
       "foreignKeys": {
-        "pages_blocks_hero_actions_parent_id_fk": {
-          "name": "pages_blocks_hero_actions_parent_id_fk",
-          "tableFrom": "pages_blocks_hero_actions",
-          "tableTo": "pages_blocks_hero",
+        "pages_blocks_video_hero_actions_parent_id_fk": {
+          "name": "pages_blocks_video_hero_actions_parent_id_fk",
+          "tableFrom": "pages_blocks_video_hero_actions",
+          "tableTo": "pages_blocks_video_hero",
           "columnsFrom": [
             "_parent_id"
           ],
@@ -492,8 +492,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "pages_blocks_hero": {
-      "name": "pages_blocks_hero",
+    "pages_blocks_video_hero": {
+      "name": "pages_blocks_video_hero",
       "columns": {
         "_order": {
           "name": "_order",
@@ -523,28 +523,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "heading": {
-          "name": "heading",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "show_logo": {
-          "name": "show_logo",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": true
-        },
-        "subheading": {
-          "name": "subheading",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
         "background_image_id": {
           "name": "background_image_id",
           "type": "integer",
@@ -568,36 +546,36 @@
         }
       },
       "indexes": {
-        "pages_blocks_hero_order_idx": {
-          "name": "pages_blocks_hero_order_idx",
+        "pages_blocks_video_hero_order_idx": {
+          "name": "pages_blocks_video_hero_order_idx",
           "columns": [
             "_order"
           ],
           "isUnique": false
         },
-        "pages_blocks_hero_parent_id_idx": {
-          "name": "pages_blocks_hero_parent_id_idx",
+        "pages_blocks_video_hero_parent_id_idx": {
+          "name": "pages_blocks_video_hero_parent_id_idx",
           "columns": [
             "_parent_id"
           ],
           "isUnique": false
         },
-        "pages_blocks_hero_path_idx": {
-          "name": "pages_blocks_hero_path_idx",
+        "pages_blocks_video_hero_path_idx": {
+          "name": "pages_blocks_video_hero_path_idx",
           "columns": [
             "_path"
           ],
           "isUnique": false
         },
-        "pages_blocks_hero_background_image_idx": {
-          "name": "pages_blocks_hero_background_image_idx",
+        "pages_blocks_video_hero_background_image_idx": {
+          "name": "pages_blocks_video_hero_background_image_idx",
           "columns": [
             "background_image_id"
           ],
           "isUnique": false
         },
-        "pages_blocks_hero_background_video_idx": {
-          "name": "pages_blocks_hero_background_video_idx",
+        "pages_blocks_video_hero_background_video_idx": {
+          "name": "pages_blocks_video_hero_background_video_idx",
           "columns": [
             "background_video_id"
           ],
@@ -605,9 +583,9 @@
         }
       },
       "foreignKeys": {
-        "pages_blocks_hero_background_image_id_media_id_fk": {
-          "name": "pages_blocks_hero_background_image_id_media_id_fk",
-          "tableFrom": "pages_blocks_hero",
+        "pages_blocks_video_hero_background_image_id_media_id_fk": {
+          "name": "pages_blocks_video_hero_background_image_id_media_id_fk",
+          "tableFrom": "pages_blocks_video_hero",
           "tableTo": "media",
           "columnsFrom": [
             "background_image_id"
@@ -618,9 +596,9 @@
           "onDelete": "set null",
           "onUpdate": "no action"
         },
-        "pages_blocks_hero_background_video_id_media_id_fk": {
-          "name": "pages_blocks_hero_background_video_id_media_id_fk",
-          "tableFrom": "pages_blocks_hero",
+        "pages_blocks_video_hero_background_video_id_media_id_fk": {
+          "name": "pages_blocks_video_hero_background_video_id_media_id_fk",
+          "tableFrom": "pages_blocks_video_hero",
           "tableTo": "media",
           "columnsFrom": [
             "background_video_id"
@@ -631,9 +609,9 @@
           "onDelete": "set null",
           "onUpdate": "no action"
         },
-        "pages_blocks_hero_parent_id_fk": {
-          "name": "pages_blocks_hero_parent_id_fk",
-          "tableFrom": "pages_blocks_hero",
+        "pages_blocks_video_hero_parent_id_fk": {
+          "name": "pages_blocks_video_hero_parent_id_fk",
+          "tableFrom": "pages_blocks_video_hero",
           "tableTo": "pages",
           "columnsFrom": [
             "_parent_id"
@@ -2033,6 +2011,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "3d801235-2ae6-4739-a3d0-6a972a98ddc8",
+  "id": "7ef8b848-ce35-4ab5-9e12-b89242e1faa8",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
