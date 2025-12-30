@@ -14,7 +14,7 @@ export interface ServiceSeedData {
   name: string
   description: string
   duration: number
-  image: MediaConfig
+  image?: MediaConfig
   richTextParagraphs: string[]
   features: Feature[]
   richTextParagraphsAfterFeatures: string[]

@@ -14,14 +14,12 @@ import { MediaCollection } from './domains/media'
 import { PagesCollection } from './domains/pages'
 import { ServicesCollection } from './domains/services'
 import { UsersCollection } from './domains/users'
-import { seed } from './seed'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 const isCLI = process.argv.some((value) => value.match(/^(generate|migrate):?/))
 const isProduction = process.env.NODE_ENV === 'production'
-const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build'
 
 const cloudflare =
   isCLI || !isProduction
@@ -70,10 +68,8 @@ export default buildConfig({
     supportedLanguages: { en, tr },
     fallbackLanguage: 'en',
   },
-  onInit: async (payload) => {
-    if (!isBuildPhase) {
-      await seed(payload)
-    }
+  onInit: async (_payload) => {
+    // Seeding is now handled via 'npm run seed' command
   },
 })
 

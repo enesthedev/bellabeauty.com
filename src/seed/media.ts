@@ -5,40 +5,10 @@ import type { Payload } from 'payload'
 import type { MediaConfig } from './types'
 
 export const MEDIA_ASSETS = {
-  video: {
-    filename: 'makeup-video.mp4',
-    alt: 'Belle Güzellik Merkezi - Makyaj Video',
-    mimeType: 'video/mp4',
-  },
-  thumbnail: {
-    filename: 'makeup-video-thumbnail.png',
-    alt: 'Belle Güzellik Merkezi - Video Thumbnail',
+  logo: {
+    filename: 'belle-guzellik.png',
+    alt: 'Belle Güzellik Merkezi Logo',
     mimeType: 'image/png',
-  },
-  facialMask: {
-    filename: 'woman-receiving-facial-mask-applied-by-beautician.jpg',
-    alt: 'Cilt Bakımı',
-    mimeType: 'image/jpeg',
-  },
-  nailArt: {
-    filename: 'nail-art.jpg',
-    alt: 'Tırnak Sanatı',
-    mimeType: 'image/jpeg',
-  },
-  eyebrowEyelash: {
-    filename: 'woman-with-eyebrow-and-eyelash-design-applied.jpg',
-    alt: 'Kaş ve Kirpik Tasarımı',
-    mimeType: 'image/jpeg',
-  },
-  haircut: {
-    filename: 'woman-haircut.jpg',
-    alt: 'Profesyonel Saç Hizmetleri',
-    mimeType: 'image/jpeg',
-  },
-  laserEpilation: {
-    filename: 'woman-laser-epliation.jpg',
-    alt: 'Lazer Epilasyon',
-    mimeType: 'image/jpeg',
   },
 } as const
 
@@ -70,6 +40,7 @@ export async function getOrCreateMedia(
   }
 
   const fileBuffer = fs.readFileSync(filePath)
+  const fileData = new Uint8Array(fileBuffer)
 
   const media = await payload.create({
     collection: 'media',
@@ -77,14 +48,13 @@ export async function getOrCreateMedia(
       alt: mediaConfig.alt,
     },
     file: {
-      data: fileBuffer,
+      data: fileData,
       name: mediaConfig.filename,
       mimetype: mediaConfig.mimeType,
-      size: fileBuffer.length,
+      size: fileData.length,
     },
   })
 
   payload.logger.info(`Created media: ${mediaConfig.filename}`)
   return media.id
 }
-

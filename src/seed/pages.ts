@@ -19,9 +19,7 @@ export async function seedHomePage(payload: Payload): Promise<void> {
   }
 
   payload.logger.info('Seeding home page...')
-
-  const videoId = await getOrCreateMedia(payload, MEDIA_ASSETS.video)
-  const thumbnailId = await getOrCreateMedia(payload, MEDIA_ASSETS.thumbnail)
+  await getOrCreateMedia(payload, MEDIA_ASSETS.logo)
 
   await payload.create({
     collection: 'pages',
@@ -31,8 +29,6 @@ export async function seedHomePage(payload: Payload): Promise<void> {
       layout: [
         {
           blockType: 'video-hero',
-          backgroundVideo: videoId,
-          backgroundImage: thumbnailId,
           actions: [
             {
               label: 'Yol Tarifi Alın',
@@ -94,4 +90,3 @@ export async function seedServicesPage(payload: Payload): Promise<void> {
 
   payload.logger.info('Services page seeded successfully')
 }
-
